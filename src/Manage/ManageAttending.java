@@ -59,35 +59,70 @@ public class ManageAttending {
 			case 6: // 종료
 				System.out.println("> 종료합니다.");
 				run = false;
-				break;	
+				break;
 			default:
 			}
 		}
 	}
 
-	private void attendClass() {
+	private void attendClass() { // 수강 신청
+		List<User> u_list = daou.getStudentList();
+
+		System.out.println("-------------------------- 학번 목록 --------------------------");
+		int count = 1;
+		for (User u : u_list) {
+			if (count % 6 == 0) {
+				System.out.println();
+			}
+			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getUserId(), " "));
+			count++;
+		}
+		System.out.println();
+		System.out.println();
 		String newAttenduserId = this.inputString("> 수강 신청할 학생의 학번 : ");
+
+		List<Grade> listg = daog.getUserGradeList(newAttenduserId);
+
+		System.out.println("------------------------ 현재 수강 신청 현황 ------------------------");
+		int count2 = 1;
+		for (Grade g : listg) {
+			System.out.println(count2 + ". " + g.getClassIdNum());
+			count2++;
+		}
+		System.out.println();
+
+		List<Subject> s_list = daos.getSubjectList();
+
+		System.out.println("-------------------------- 개설 과목 목록 --------------------------");
+		int count3 = 1;
+		for (Subject u : s_list) {
+			if (count3 % 6 == 0) {
+				System.out.println();
+			}
+			System.out.print(String.format("%s%3s", "[" + count3 + "] " + u.getClassIdNum(), " "));
+			count3++;
+		}
+		System.out.println();
+		System.out.println();
 		String newAttendClassIdNum = this.inputString("> 수강 신청할 학수 번호 (ex.algorithm-1) : ");
 
-		List<Grade> listg = daog.getUserGradeList(newAttenduserId); // 학번의 수강신청 내역
-		List<Subject> SubjectofNew = daos.inquirySubjectList(newAttendClassIdNum); // 학수번호로 개설과목 한개 조회
+		List<Subject> SubjectofNew = daos.inquirySubjectList(newAttendClassIdNum);
 		String classTime = null;
 		String classStime = null, classEtime = null;
-		if (SubjectofNew.size() >= 1) {
-			System.out.println("학수 번호 사이즈 : " + SubjectofNew.size());
+
+		if (SubjectofNew.size() != 0) {
 			classTime = SubjectofNew.get(0).getClassTime();
 			classStime = classTime.split("-")[0];
 			classEtime = classTime.split("-")[1];
 		}
 
 		boolean acceptAttend = true;
-		for (Grade u : listg) { // 한 학번에 대하여 신청된 모든 학수번호에 대하여...
-			// 입력받은 학수번호의 강의시간이 겹치는지 확인
+		for (Grade u : listg) {
 			List<Subject> SubjectofOne = daos.inquirySubjectList(u.getClassIdNum());
 			String CT = SubjectofOne.get(0).getClassTime();
 			String ST = CT.split("-")[0];
 			String ET = CT.split("-")[1];
-			// 강의 시간이 겹치지 않는지 확인
+
 			if (Integer.parseInt(classStime) != Integer.parseInt(ST)) {
 				if (Integer.parseInt(classStime) < Integer.parseInt(ST)) {
 					if (Integer.parseInt(classEtime) > Integer.parseInt(ST)) {
@@ -107,43 +142,62 @@ public class ManageAttending {
 		}
 
 		if (!acceptAttend) {
-			System.out.println("> 강의 시간이 겹칩니다.");
+			System.out.println("> 강의 시간이 중복되어 수강 신청을 할 수 없습니다.");
 		} else {
 			gradee.setClassIdNum(newAttendClassIdNum);
 			gradee.setUserId(newAttenduserId);
 			gradee.setGrade((float) 0);
 			daog.InsertGrade(gradee);
 		}
+		
 	}
 
 	private void deleteClass() { // 수강 취소
-		List<Grade> list = daog.getGradeList();
-		for (Grade g : list) { // 학수번호와 학번
-			System.out.println("학수번호 : " + g.getClassIdNum() + " 학번 : " + g.getUserId());
+		List<User> u_list = daou.getStudentList();
+
+		System.out.println("-------------------------- 학번 목록 --------------------------");
+		int count = 1;
+		for (User u : u_list) {
+			if (count % 6 == 0) {
+				System.out.println();
+			}
+			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getUserId(), " "));
+			count++;
 		}
+		System.out.println();
+		System.out.println();
 		String deleteUserId = this.inputString("> 수강 취소할 학생의 학번 : ");
+
+		List<Grade> listg = daog.getUserGradeList(deleteUserId);
+
+		System.out.println("------------------------ 현재 수강 신청 현황 ------------------------");
+		int count2 = 1;
+		for (Grade g : listg) {
+			System.out.println(count2 + ". " + g.getClassIdNum());
+			count2++;
+		}
+		System.out.println();
+		
 		String deleteClassIdNum = this.inputString("> 수강 취소할 학수 번호 (ex.algorithm-1) : ");
+		
 		gradee.setClassIdNum(deleteClassIdNum);
 		gradee.setUserId(deleteUserId);
 		boolean r = daog.deleteGrade(gradee);
 
 		if (r) {
-			list = daog.getGradeList();
-			for (Grade g : list) {
-				System.out.println("학수번호 : " + g.getClassIdNum() + " 학번 : " + g.getUserId());
-			}
 			System.out.println("> 수강 취소가 완료되었습니다.");
 		} else
-			System.out.println("> 수강 취소가 실패하였습니다.");
+			System.out.println("> 수강 취소를 실패하였습니다.");
+		
 	}
 
-	private void inquirySyllabus() {
+	private void inquirySyllabus() { // 강의 계획서 조회
 		List<Subject> list = daos.getSubjectList();
-		
+
 		System.out.println("-------------------- 개설 과목 목록 --------------------");
 		int count = 1;
 		for (Subject u : list) {
-			if(count % 6 == 0) {
+			if (count % 6 == 0) {
 				System.out.println();
 			}
 			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getClassIdNum(), " "));
@@ -151,15 +205,15 @@ public class ManageAttending {
 		}
 		System.out.println();
 		System.out.println();
-		
+
 		String search = this.inputString("> 강의계획서를 조회할 학수 번호를 입력하세요 (ex.algorithm-1) : ");
 		String[] result = daos.getSyllabusAndSubjectName(search).split("#");
 		System.out.println("[ 과목명 : " + result[0] + " ]");
 		System.out.println("강의 계획 내용 : " + result[1]);
-		
+
 	}
 
-	private void inquiryTimetable() {
+	private void inquiryTimetable() { // 강의 시간표 조회
 		List<Subject> list = daos.getSubjectList();
 
 		System.out.println("-------------------------- 강의 시간표 --------------------------");

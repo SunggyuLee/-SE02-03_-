@@ -62,7 +62,7 @@ public class ManageSubject {
 			this.run();
 		}
 
-		System.out.println("-------------------- 개설 과목 목록 --------------------");
+		System.out.println("-------------------------- 개설 과목 목록 --------------------------");
 		int count = 1;
 		for (Subject u : list) {
 			if(count % 6 == 0) {
@@ -94,7 +94,7 @@ public class ManageSubject {
 			this.run();
 		}
 
-		System.out.println("-------------------- 개설 과목 목록 --------------------");
+		System.out.println("-------------------------- 개설 과목 목록 --------------------------");
 		int count = 1;
 		for (Subject u : list) {
 			if(count % 6 == 0) {
