@@ -78,9 +78,9 @@ public class ManageRegister {
 		boolean r = daou.deleteUser(user);
 
 		if (r)
-			System.out.println("> 학적제거가 완료되었습니다.");
+			System.out.println("> 학적 제거가 완료되었습니다.");
 		else
-			System.out.println("> 학적제거를 실패하였습니다.");
+			System.out.println("> 학적 제거를 실패하였습니다.");
 	}
 
 	private void modifyStudent() {
@@ -115,9 +115,9 @@ public class ManageRegister {
 		boolean r = daou.modifyUser(user);
 
 		if (r)
-			System.out.println("> 학적수정이 완료되었습니다.");
+			System.out.println("> 학적 수정이 완료되었습니다.");
 		else
-			System.out.println("> 학적수정을 실패하였습니다.");
+			System.out.println("> 학적 수정을 실패하였습니다.");
 	}
 
 	private void inquiryStudent() {
@@ -181,9 +181,9 @@ public class ManageRegister {
 		boolean r = daou.InsertUser(user);
 
 		if (r)
-			System.out.println("> 학적등록이 완료되었습니다.");
+			System.out.println("> 학적 등록이 완료되었습니다.");
 		else
-			System.out.println("> 학적등록을 실패하였습니다.");
+			System.out.println("> 학적 등록을 실패하였습니다.");
 
 	}
 

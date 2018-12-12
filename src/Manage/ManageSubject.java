@@ -60,12 +60,13 @@ public class ManageSubject {
 		System.out.println("-------------------- 개설 과목 목록 --------------------");
 		int count = 1;
 		for (Subject u : list) {
-			if(count % 3 == 0) {
+			if(count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%4s", "[" + count + "] " + u.getClassIdNum()));
+			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getClassIdNum(), " "));
 			count++;
 		}
+		System.out.println();
 		System.out.println();
 
 		String classIdNum = this.inputString("> 삭제할 학수번호 : ");
@@ -75,9 +76,9 @@ public class ManageSubject {
 		boolean r = daos.deleteSubject(subject);
 
 		if (r)
-			System.out.println("> 교과목삭제가 완료되었습니다.");
+			System.out.println("> 교과목 삭제가 완료되었습니다.");
 		else
-			System.out.println("> 교과목삭제가 실패하였습니다.");
+			System.out.println("> 교과목 삭제를 실패하였습니다.");
 	}
 
 	private void modifySubject() {
@@ -86,12 +87,13 @@ public class ManageSubject {
 		System.out.println("-------------------- 개설 과목 목록 --------------------");
 		int count = 1;
 		for (Subject u : list) {
-			if(count % 3 == 0) {
+			if(count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%4s", "[" + count + "] " + u.getClassIdNum()));
+			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getClassIdNum(), " "));
 			count++;
 		}
+		System.out.println();
 		System.out.println();
 
 		String classIdNum = this.inputString("> 학수번호 (ex.algorithm-1) : ");
@@ -136,12 +138,12 @@ public class ManageSubject {
 			boolean r2 = daos.modifySubject(subject);
 
 			if (r2)
-				System.out.println("> 교과목수정이 완료되었습니다.");
+				System.out.println("> 교과목 수정이 완료되었습니다.");
 			else
-				System.out.println("> 교과목수정이 실패하였습니다.");
+				System.out.println("> 교과목 수정을 실패하였습니다.");
 
 		} else {
-			System.out.println("> 해당 강의시간과 강의실에 이미 다른수업이 있습니다. ");
+			System.out.println("> 해당 강의시간과 강의실에 이미 다른 수업이 있습니다. ");
 		}
 
 	}
@@ -152,12 +154,13 @@ public class ManageSubject {
 		System.out.println("-------------------------- 과목 목록 --------------------------");
 		int count = 1;
 		for (AllSubject u : as_list) {
-			if(count % 3 == 0) {
+			if(count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%3s", "[" + count + "] " + u.getSubjectName()));
+			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getSubjectName(), " "));
 			count++;
 		}
+		System.out.println();
 		System.out.println();
 
 		String subjectName = this.inputString("> 과목명 (ex.algorithm) : ");
@@ -207,10 +210,10 @@ public class ManageSubject {
 			if (r2)
 				System.out.println("> 교과목 등록이 완료되었습니다.");
 			else
-				System.out.println("> 교과목 등록이 실패하였습니다.");
+				System.out.println("> 교과목 등록을 실패하였습니다.");
 
 		} else {
-			System.out.println("> 해당 강의시간과 강의실에 이미 다른수업이 있습니다. ");
+			System.out.println("> 해당 강의시간과 강의실에 이미 다른 수업이 있습니다. ");
 		}
 	}
 
