@@ -96,6 +96,13 @@ public class ManageAllSubject {
 	}
 	
 	private void enrollAllSubject() {
+		//처음에 등록된 리스트 뜨게
+		List<AllSubject> allSubjectList = daoa.getAllSubjectList();
+		for (AllSubject a:
+			 allSubjectList) {
+			System.out.println("과목명 : " + a.getSubjectName());
+		}
+
 		String subjectName = this.inputString("과목명 : ");
 		String profName = this.inputString("담당교수 : ");
 		Integer credit = this.inputInt("학점 : ");
