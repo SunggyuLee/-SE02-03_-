@@ -27,7 +27,7 @@ public class ManageSubject {
 			System.out.println();
 			System.out.println();
 			System.out.println("실행할 업무를 선택하세요.");
-			int chooseWork = this.inputInt("1.개설 과목 등록  2.개설 과목 수정  3.개설 과목 삭제  7.종료 ");
+			int chooseWork = this.inputInt("1.개설 과목 등록  2.개설 과목 수정  3.개설 과목 삭제  4.종료 ");
 
 			switch (chooseWork) {
 			case 1: // 개설 과목 등록
@@ -45,7 +45,7 @@ public class ManageSubject {
 				this.deleteSubject();
 				break;
 
-			case 7: // 종료
+			case 4: // 종료
 				System.out.println("> 종료합니다.");
 				run = false;
 				break;
@@ -56,6 +56,11 @@ public class ManageSubject {
 
 	private void deleteSubject() {
 		List<Subject> list = daos.getSubjectList();
+		
+		if (list.size() == 0) {
+			System.out.println("> 등록된 개설 과목이 없습니다.");
+			this.run();
+		}
 
 		System.out.println("-------------------- 개설 과목 목록 --------------------");
 		int count = 1;
@@ -83,6 +88,11 @@ public class ManageSubject {
 
 	private void modifySubject() {
 		List<Subject> list = daos.getSubjectList();
+		
+		if (list.size() == 0) {
+			System.out.println("> 등록된 개설 과목이 없습니다.");
+			this.run();
+		}
 
 		System.out.println("-------------------- 개설 과목 목록 --------------------");
 		int count = 1;

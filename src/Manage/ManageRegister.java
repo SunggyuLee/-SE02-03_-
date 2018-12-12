@@ -24,7 +24,7 @@ public class ManageRegister {
 			System.out.println();
 			System.out.println();
 			System.out.println("실행할 업무를 선택하세요.");
-			int chooseWork = this.inputInt("1.학적 등록  2.학적 기본  3.학적 수정  4.학적 삭제  7.종료 ");
+			int chooseWork = this.inputInt("1.학적 등록  2.학적 기본  3.학적 수정  4.학적 삭제  5.종료 ");
 
 			switch (chooseWork) {
 			case 1: // 학적 등록
@@ -47,7 +47,7 @@ public class ManageRegister {
 				this.deleteStudent();
 				break;
 
-			case 7: // 종료
+			case 5: // 종료
 				System.out.println("> 종료합니다.");
 				run = false;
 				break;
@@ -58,6 +58,11 @@ public class ManageRegister {
 
 	private void deleteStudent() {
 		List<User> u_list = daou.getStudentList();
+		
+		if (u_list.size() == 0) {
+			System.out.println("> 등록된 학생이 없습니다.");
+			this.run();
+		}
 
 		System.out.println("-------------------------- 학번 목록 --------------------------");
 		int count = 1;
@@ -85,6 +90,11 @@ public class ManageRegister {
 
 	private void modifyStudent() {
 		List<User> u_list = daou.getStudentList();
+		
+		if (u_list.size() == 0) {
+			System.out.println("> 등록된 학생이 없습니다.");
+			this.run();
+		}
 
 		System.out.println("-------------------------- 학번 목록 --------------------------");
 		int count = 1;

@@ -20,7 +20,7 @@ public class ManageAllSubject {
 		while(run) {
 			System.out.println();System.out.println();
 			System.out.println("실행할 업무를 선택하세요.");
-			int chooseWork = this.inputInt("1.교과목 등록  2.교과목 수정  3.교과목 삭제  7.종료 ");
+			int chooseWork = this.inputInt("1.교과목 등록  2.교과목 수정  3.교과목 삭제  4.종료 ");
 
 			switch (chooseWork) {
 			case 1: // 교과목 등록
@@ -38,7 +38,7 @@ public class ManageAllSubject {
 				this.deleteAllSubject();
 				break;
 				
-			case 7: // 종료
+			case 4: // 종료
 				System.out.println("> 종료합니다.");
 				run = false;
 				break;
@@ -49,6 +49,11 @@ public class ManageAllSubject {
 	
 	private void deleteAllSubject() {
 		List<AllSubject> as_list = daoa.getAllSubjectList();
+		
+		if (as_list.size() == 0) {
+			System.out.println("> 등록된 교과목이 없습니다.");
+			this.run();
+		}
 		
 		System.out.println("-------------------------- 교과목 목록 --------------------------");
 		int count = 1;
@@ -76,6 +81,11 @@ public class ManageAllSubject {
 	
 	private void modifyAllSubject() {
 		List<AllSubject> as_list = daoa.getAllSubjectList();
+		
+		if (as_list.size() == 0) {
+			System.out.println("> 등록된 교과목이 없습니다.");
+			this.run();
+		}
 		
 		System.out.println("-------------------------- 교과목 목록 --------------------------");
 		int count = 1;
