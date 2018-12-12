@@ -148,10 +148,11 @@ public class ManageAttending {
 		}
 	}
 
-	private void inquirySyllabus() {
+	private void inquirySyllabus() { //강의계획서 조회, 학수번호를 입력받아 과목명과 강의계획서를 출력한다.
 		// 학수번호로 조회해야 한다. 왜냐하면 과목명으로는 다른 강의계획서가 존재할 수도 있다.
-		
-		String inquiryClassIdNum = this.inputString("강의계획서를 조회할 학수번호를 입력하세요 : ");
+		String[] result = daos.getSyllabusAndSubjectName(this.inputString("강의계획서를 조회할 학수번호를 입력하세요 : ")).split("#");
+
+		System.out.println("과목명 : " + result[0] + " 강의계획서 : " + result[1]);
 	}
 
 	private void inquiryTimetable() { //강의시간표 조회
