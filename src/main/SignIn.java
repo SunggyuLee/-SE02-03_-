@@ -10,12 +10,12 @@ public class SignIn {
 	Scanner scan = new Scanner(System.in);
 
 	public void run() {
-		String userId = this.inputString("아이디 : ");
-		String pwd = this.inputString("비밀번호 : ");
-		String name = this.inputString("성명 (ex.kimseongje) : ");
-		String birth = this.inputString("생년월일 (ex.19940216) : ");
-		String addr = this.inputString("주소 : ");
-		String phoneNum = this.inputString("전화번호 : ");
+		String userId = this.inputString("> 아이디 : ");
+		String pwd = this.inputString("> 비밀번호 : ");
+		String name = this.inputString("> 성명 (ex.kimseongje) : ");
+		String birth = this.inputString("> 생년월일 (ex.19940216) : ");
+		String addr = this.inputString("> 주소 : ");
+		String phoneNum = this.inputString("> 전화번호 : ");
 
 		// 사용자 테이블에 회원가입 정보가 저장된다
 		DAOUser dao = DAOUser.sharedInstance();
@@ -30,9 +30,9 @@ public class SignIn {
 		boolean r = dao.InsertUser(user);
 
 		if (r)
-			System.out.println("회원가입이 완료되었습니다.");
+			System.out.println("> 회원가입이 완료되었습니다.");
 		else
-			System.out.println("회원가입이 실패하였습니다.");
+			System.out.println("> 회원가입이 실패하였습니다.");
 	}
 
 	private int inputInt(String string) {
