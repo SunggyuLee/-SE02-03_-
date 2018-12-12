@@ -330,4 +330,27 @@ public class DAOSubject {
 		return list;
 	}
 
+	// 학수번호 입력받아서 강의계획서랑 과목명 출력         과목명#강의계획서
+	public String getSyllabusAndSubjectName(String classIdNum) {
+		String sql = "SELECT * FROM subject WHERE classIdNum='" + classIdNum + "'";
+		String temp = "";
+		if (connect()) {
+			try {
+				stmt = conn.createStatement();
+				if (stmt != null) {
+					rs = stmt.executeQuery(sql);
+					temp = rs.getString("subjectName") +"#"+ rs.getString("syllabus");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else {
+			// 연결에 실패했을 때 작업
+			System.out.println("데이터베이스 연결에 실패했습니다.");
+			System.exit(0);
+		}
+		return temp;
+	}
+
+
 }
