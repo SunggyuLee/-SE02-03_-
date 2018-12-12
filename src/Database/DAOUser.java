@@ -226,4 +226,40 @@ public class DAOUser {
 		}
 		return result;
 	}
+
+	public List<User> getScholarshipStudent(int scholarPercent, String userId) {
+		List<User> list = null;
+		String sql = "SELECT userId, name, avgGrade FROM user WHERE userId='"+userId+"' order by 3 desc limit count(*)/"+scholarPercent;
+		if(connect()) {
+			try {
+				stmt = conn.createStatement();
+				if(stmt != null) {
+					rs = stmt.executeQuery(sql);
+
+					list = new ArrayList<User>();
+
+					while(rs.next()) {
+						User user = new User();
+
+						user.setUserId((rs.getString("userId")));
+						user.setPwd((rs.getString("pwd")));
+						user.setName((rs.getString("name")));
+						user.setBirth((rs.getString("birth")));
+						user.setAddr((rs.getString("addr")));
+						user.setPhoneNum((rs.getString("phoneNum")));
+						user.setavgGrade(rs.getFloat("avgGrade"));
+
+						list.add(user);
+					}
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}else {
+			// 연결에 실패했을 때 작업
+			System.out.println("데이터베이스 연결에 실패했습니다.");
+			System.exit(0);
+		}
+		return list;
+	}
 }
