@@ -262,4 +262,34 @@ public class DAOUser {
 		}
 		return list;
 	}
+
+	public List<User> getStudentList() {
+		List<User> list = null;
+		String sql = "SELECT userId FROM user";
+		if(connect()) {
+			try {
+				stmt = conn.createStatement();
+				if(stmt != null) {
+					rs = stmt.executeQuery(sql);
+
+					list = new ArrayList<User>();
+
+					while(rs.next()) {
+						User user = new User();
+
+						user.setUserId((rs.getString("userId")));
+
+						list.add(user);
+					}
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}else {
+			// 연결에 실패했을 때 작업
+			System.out.println("데이터베이스 연결에 실패했습니다.");
+			System.exit(0);
+		}
+		return list;
+	}
 }

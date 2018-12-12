@@ -109,7 +109,7 @@ public class DAOGrade {
 				
 				pstmt.setString(1, grade.getClassIdNum());
 				pstmt.setString(2, grade.getUserId());
-				pstmt.setFloat(3, grade.getGrade());
+				pstmt.setFloat(3, (float)0);
 				
 				int r = pstmt.executeUpdate();
 				
@@ -207,5 +207,59 @@ public class DAOGrade {
 			System.exit(0);
 		}
 		return list;
+	}
+
+	public boolean registerGrade(Grade grade) {
+		boolean result = false;
+		
+		if(this.connect()) {
+			try {
+				String sql = "UPDATE grade set grade="+grade.getGrade()+" "
+						+ "WHERE classIdNum ='"+grade.getClassIdNum()+"' and userId='"+grade.getUserId()+"'";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				
+				int r = pstmt.executeUpdate();
+				
+				if(r>0) {
+					result = true;
+				}
+				// 데이터베이스 생성 객체 해제
+				pstmt.close();
+				this.close();
+			} catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		} else {
+			System.out.println("데이터베이스 연결에 실패");
+			System.exit(0);
+		}
+		return result;
+	}
+
+	public boolean modifyGrade(Grade grade) {
+		boolean result = false;
+		
+		if(this.connect()) {
+			try {
+				String sql = "UPDATE grade set grade="+grade.getGrade()+" "
+						+ "WHERE classIdNum ='"+grade.getClassIdNum()+"' and userId='"+grade.getUserId()+"'";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				
+				int r = pstmt.executeUpdate();
+				
+				if(r>0) {
+					result = true;
+				}
+				// 데이터베이스 생성 객체 해제
+				pstmt.close();
+				this.close();
+			} catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		} else {
+			System.out.println("데이터베이스 연결에 실패");
+			System.exit(0);
+		}
+		return result;
 	}
 }

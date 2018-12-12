@@ -65,14 +65,23 @@ public class ManageAttending {
 	}
 
     private void deleteClass() { //수강 취소
+    	List<Grade> list = daog.getGradeList();
+		for(Grade g : list) {
+			System.out.println(g);
+		}
+		String deleteUserId = this.inputString("수강 취소할 학생의 학번 : ");
         String deleteClassIdNum = this.inputString("수강 취소할 학수번호 : ");
-        String deleteUserId = this.inputString("수강 취소할 학생의 학번 : ");
-        Grade grade = new Grade();
-        grade.setClassIdNum(deleteClassIdNum);
-        grade.setUserId(deleteUserId);
-        boolean r = daog.deleteGrade(grade);
-        if (r)
+        gradee.setClassIdNum(deleteClassIdNum);
+        gradee.setUserId(deleteUserId);
+        boolean r = daog.deleteGrade(gradee);
+        
+        if (r) {
+        	list = daog.getGradeList();
+        	for(Grade g : list) {
+        		System.out.println(g);
+        	}
             System.out.println("수강 취소가 완료되었습니다.");
+        }
         else
             System.out.println("수강 취소가 실패하였습니다.");
     }

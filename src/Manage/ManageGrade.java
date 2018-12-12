@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import Database.DAOGrade;
+import Database.DAOUser;
 import Database.Grade;
+import Database.User;
 
 public class ManageGrade {
 	public static boolean endGrading = false;
@@ -13,6 +15,7 @@ public class ManageGrade {
 	Float grade;
 	Scanner scan = new Scanner(System.in);
 	DAOGrade daog = DAOGrade.sharedInstance();
+	Grade gradee = new Grade();
 
 	public void run() {
 		boolean run = true;
@@ -56,16 +59,19 @@ public class ManageGrade {
 
 	private void checkReport() { //학생별 성적표 조회
 		// 학생의 학번을 입력받고 학생의 모든 성적을 보여준다
+		DAOUser daou = DAOUser.sharedInstance();
+		List<User> list = daou.getStudentList();
+		for(User u : list) {
+			System.out.println(u);
+		}
 		String checkUserId = inputString("성적표를 조회할 학생의 학번 : ");
-		Grade grade = new Grade();
-		grade.setUserId(checkUserId);
-		List<Grade> list = daog.getStudentReport(grade);
-		if (list.size() == 0) {
+		gradee.setUserId(checkUserId);
+		List<Grade> list2 = daog.getStudentReport(gradee);
+		if (list2.size() == 0) {
 			System.out.println("조회할 리스트가 없습니다.");
 		}
 		else {
-			for (Grade u:
-					list) {
+			for (Grade u:list2) {
 				System.out.println(u);
 			}
 		}
@@ -74,11 +80,62 @@ public class ManageGrade {
 	private void fixGrade() {
 		// 학수번호와 학번 입력하고 성적수정
 		// 성적이 존재하면 수정 가능하게
+		String UserId = inputString("성적을 수정할 학생의 학번 : ");
+		gradee.setUserId(UserId);
+		List<Grade> list2 = daog.getStudentReport(gradee);
+		for (Grade u:list2) {
+			System.out.println(u);
+		}
+		String classIdNum = inputString("성적을 수정할 학수 번호 : ");
+		System.out.print("성적 : ");
+		Float newGrade = scan.nextFloat();
+		
+		gradee.setClassIdNum(classIdNum);
+		gradee.setGrade(newGrade);
+		
+		boolean r = daog.modifyGrade(gradee);
+        
+		list2 = daog.getStudentReport(gradee);
+		for (Grade u:list2) {
+			System.out.println(u);
+		}
+		
+        if (r) {
+            System.out.println("성적 수정이 완료되었습니다.");
+        }
+        else
+            System.out.println("성적 수정이 실패하였습니다.");
 	}
 
 	private void giveGrade() {
 		// 학수번호와 학번 입력하고 성적등록
 		// 성적이 존재하면 등록 불가하게
+		String UserId = inputString("성적을 등록할 학생의 학번 : ");
+		gradee.setUserId(UserId);
+		List<Grade> list2 = daog.getStudentReport(gradee);
+		for (Grade u:list2) {
+			System.out.println(u);
+		}
+		String classIdNum = inputString("성적을 등록할 학수 번호 : ");
+		System.out.print("성적 : ");
+		Float newGrade = scan.nextFloat();
+		
+		gradee.setClassIdNum(classIdNum);
+		gradee.setGrade(newGrade);
+		
+		boolean r = daog.registerGrade(gradee);
+        
+		list2 = daog.getStudentReport(gradee);
+		for (Grade u:list2) {
+			System.out.println(u);
+		}
+		
+        if (r) {
+            System.out.println("성적 등록이 완료되었습니다.");
+        }
+        else
+            System.out.println("성적 등록이 실패하였습니다.");
+		
 	}
 
 	private int inputInt(String string) {
