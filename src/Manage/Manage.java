@@ -9,7 +9,7 @@ public class Manage {
 		while(run) {
 			System.out.println();System.out.println();
 			System.out.println("실행할 업무를 선택하세요.");
-			int chooseWork = this.inputInt("1.학적 관리  2.교과 관리  3.수강 관리  4.성적 관리  5.장학 관리  7.로그아웃 ");
+			int chooseWork = this.inputInt("1.학적 관리  2.교과 관리  3.수강 관리  4.성적 관리  5.장학 관리  6.로그아웃 ");
 
 			switch (chooseWork) {
 			case 1: // 학적 관리
@@ -37,7 +37,7 @@ public class Manage {
 				new ManageScholar().run();
 				break;
 				
-			case 7: // 로그아웃
+			case 6: // 로그아웃
 				System.out.println("> 종료합니다.");
 				run = false;
 				break;
