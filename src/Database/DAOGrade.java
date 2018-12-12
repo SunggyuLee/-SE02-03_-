@@ -262,4 +262,31 @@ public class DAOGrade {
 		}
 		return result;
 	}
+	
+	
+	// 장학생 선발시 수행, 지정된 수만큼의 학생의   ( 학생 id + 이름 + 평균 학점 ) 등수 순으로 반환 
+	public List<String> getScholarList(int number) { // 장학생 리스트 출력
+		List<String> list = null;
+		String sql = "SELECT userId, name, avgGrade FROM user ORDER BY avgGrade DESC limit " + number;
+		if(connect()) {
+			try {
+				stmt = conn.createStatement();
+				if(stmt != null) {
+					rs = stmt.executeQuery(sql);
+					list = new ArrayList<>();
+					while(rs.next()) {
+						String temp = "";
+						temp = rs.getString(1) + "#" + rs.getString(2) + "#" + rs.getString(3);
+						list.add(temp);				// 학번#이름#평균 학점
+					}
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}else {
+			System.out.println("데이터베이스 연결에 실패했습니다.");
+			System.exit(0);
+		}
+		return list;
+	}
 }
