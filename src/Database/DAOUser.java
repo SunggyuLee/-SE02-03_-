@@ -13,7 +13,7 @@ public class DAOUser {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://localhost:3306/se_term_1?autoReconnect=true&useSSL=false";
 	static final String USERNAME = "root";
-	static final String PASSWORD = "admin";
+	static final String PASSWORD = "201402408";
 
 	static {
 		try {

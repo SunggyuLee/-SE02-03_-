@@ -58,9 +58,9 @@ public class ManageSubject {
 			System.out.println(u);
 		}
 		
-		String subjectName = this.inputString("삭제할 학번 : ");
+		String classIdNum = this.inputString("삭제할 학수번호 : ");
 		
-		subject.setSubjectName(subjectName);
+		subject.setClassIdNum(classIdNum);
 		
 		boolean r = daos.deleteSubject(subject);
 		

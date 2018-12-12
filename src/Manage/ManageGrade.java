@@ -87,8 +87,7 @@ public class ManageGrade {
 			System.out.println(u);
 		}
 		String classIdNum = inputString("성적을 수정할 학수 번호 : ");
-		System.out.print("성적 : ");
-		Float newGrade = scan.nextFloat();
+		Float newGrade = inputFloat("성적 : ");
 		
 		gradee.setClassIdNum(classIdNum);
 		gradee.setGrade(newGrade);
@@ -146,5 +145,10 @@ public class ManageGrade {
 	private String inputString(String string) {
 		System.out.print(string);
 		return scan.nextLine();
+	}
+	
+	private Float inputFloat(String string) {
+		System.out.print(string);
+		return Float.parseFloat(scan.nextLine());
 	}
 }
