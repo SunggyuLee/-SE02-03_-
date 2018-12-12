@@ -160,4 +160,52 @@ public class DAOGrade {
 		}
 		return list;
 	}
+
+	public boolean deleteGrade(Grade grade) {
+		boolean result = false;
+		if(this.connect()) {
+			try {
+				String sql = "DELETE from grade WHERE classIdNum='"+grade.getClassIdNum()+"' and userID='"+grade.getUserId()+"'";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				int r = pstmt.executeUpdate();
+				if(r>0) {
+					result = true;
+				}
+				pstmt.close();
+				this.close();
+			} catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		} else {
+			System.out.println("데이터베이스 연결에 실패");
+			System.exit(0);
+		}
+		return result;
+	}
+
+	public List getStudentReport(Grade grade) { //학생별 성적표 조회
+		List<Grade> list = null;
+		Grade grade1 = new Grade();
+		String sql = "SELECT * FROM grade where userId='"+ grade.getUserId()+"'";
+		if(connect()) {
+			try {
+				stmt = conn.createStatement();
+				if(stmt != null) {
+					rs = stmt.executeQuery(sql);
+					list = new ArrayList<>();
+					while(rs.next()) {
+						grade1.setClassIdNum(rs.getString("classIdNum"));
+						grade1.setGrade(rs.getFloat("grade"));
+						list.add(grade);
+					}
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}else {
+			System.out.println("데이터베이스 연결에 실패했습니다.");
+			System.exit(0);
+		}
+		return list;
+	}
 }

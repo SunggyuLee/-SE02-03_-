@@ -134,6 +134,19 @@ public class ManageAttending {
 		}
 	}
 
+	private void deleteClass() { //수강 취소
+		String deleteClassIdNum = this.inputString("수강 취소할 학수번호 : ");
+		String deleteUserId = this.inputString("수강 취소할 학생의 학번 : ");
+		Grade grade = new Grade();
+		grade.setClassIdNum(deleteClassIdNum);
+		grade.setUserId(deleteUserId);
+		boolean r = daog.deleteGrade(grade);
+		if (r)
+			System.out.println("수강 취소가 완료되었습니다.");
+		else
+			System.out.println("수강 취소가 실패하였습니다.");
+	}
+
 	private int inputInt(String string) {
 		System.out.print(string);
 		return Integer.parseInt(scan.nextLine());
