@@ -27,7 +27,7 @@ public class ManageAttending {
 		while(run) {
 			System.out.println();System.out.println();
 			System.out.println("실행할 업무를 선택하세요.");
-			int chooseWork = this.inputInt("1. 개설과목 관리  2.강의시간표 조회  3.강의계획서 조회  4.수강신청  5.수강취소  7.종료 ");
+			int chooseWork = this.inputInt("1.개설과목 관리  2.강의시간표 조회  3.강의계획서 조회  4.수강신청  5.수강취소  7.종료 ");
 
 			switch (chooseWork) {
 			case 1: // 개설 과목 등록
