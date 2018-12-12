@@ -68,9 +68,9 @@ public class ManageAllSubject {
 	
 	private void modifyAllSubject() {
 		List<AllSubject> list = daoa.getAllSubjectList();
-		
+		//처음에 전체가 아닌 교과목만 리스트 뜨게
 		for(AllSubject u : list) {
-			System.out.println(u);
+			System.out.println("교과목 : " + u.getSubjectName());
 		}
 		
 		String subjectName = this.inputString("변동할 과목명 : ");
