@@ -209,11 +209,6 @@ public class ManageSubject {
 			else
 				System.out.println("교과목 등록이 실패하였습니다.");
 
-			List<Subject> list = daos.getSubjectList();
-
-			for (Subject u : list) {
-				System.out.println(u);
-			}
 		} else {
 			System.out.println("해당 강의시간과 강의실에 이미 다른수업이 있습니다. ");
 		}
