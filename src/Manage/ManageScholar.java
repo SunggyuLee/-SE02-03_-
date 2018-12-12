@@ -42,6 +42,7 @@ public class ManageScholar {
 	}
 	
 	private void inquiryScholarshipStudent() {
+		// 성적으로 정렬하여 지급율만큼 출력
 		List<User> list = daou.getUserList();
 		
 		for(User u : list) {

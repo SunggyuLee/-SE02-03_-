@@ -54,13 +54,31 @@ public class ManageGrade {
 		}
 	}
 
-	private void checkReport() {
+	private void checkReport() { //학생별 성적표 조회
+		// 학생의 학번을 입력받고 학생의 모든 성적을 보여준다
+		String checkUserId = inputString("성적표를 조회할 학생의 학번 : ");
+		Grade grade = new Grade();
+		grade.setUserId(checkUserId);
+		List<Grade> list = daog.getStudentReport(grade);
+		if (list.size() == 0) {
+			System.out.println("조회할 리스트가 없습니다.");
+		}
+		else {
+			for (Grade u:
+					list) {
+				System.out.println(u);
+			}
+		}
 	}
 
 	private void fixGrade() {
+		// 학수번호와 학번 입력하고 성적수정
+		// 성적이 존재하면 수정 가능하게
 	}
 
 	private void giveGrade() {
+		// 학수번호와 학번 입력하고 성적등록
+		// 성적이 존재하면 등록 불가하게
 	}
 
 	private int inputInt(String string) {
