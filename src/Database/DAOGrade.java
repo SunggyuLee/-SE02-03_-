@@ -289,4 +289,34 @@ public class DAOGrade {
 		}
 		return list;
 	}
+	
+	public boolean checkGradeFinish() {			// 성적 기입이 끝났는지 여부를 반환하는 함수
+		boolean result = false;
+		
+		String sql = "SELECT count(*) FROM grade WHERE grade = 0";
+		if(this.connect()) {
+			try {
+				stmt = conn.createStatement();
+				if(stmt != null) {
+					rs = stmt.executeQuery(sql);
+					
+					rs.next();
+					if(rs.getInt(1) >= 1) {							// 기입이 하나라도 끝난게 있다면 false
+						result = false;
+					}else {											// 모두 기입이 되었다면 true
+						result = true;
+					}
+					this.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("데이터베이스 연결에 실패하였습니다.");
+			System.exit(0);
+		}
+		return result;
+	}
+	
+	
 }
