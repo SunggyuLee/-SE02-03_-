@@ -54,6 +54,7 @@ public class ManageScholar {
 			String uAvg = temp[2];
 
 			System.out.println(count + ". 학번 : " + uId + "    이름 : " + uName + "    평균 학점 : "+uAvg);
+			count++;
 		}
 	}
 
