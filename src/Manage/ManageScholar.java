@@ -8,7 +8,7 @@ import Database.DAOUser;
 import Database.User;
 
 public class ManageScholar {
-	int scholarStudentNum = 10;										// 장학금 선출 인원
+	static int scholarStudentNum = 10;										// 장학금 선출 인원
 	DAOUser daou = DAOUser.sharedInstance();
 	DAOGrade daog = DAOGrade.sharedInstance();
 	User user = new User();
@@ -23,8 +23,15 @@ public class ManageScholar {
 			switch (chooseWork) {
 			case 1: // 장학생 조회
 				System.out.println("장학생을 조회합니다. 장학생은 지정된 학생 수("+ scholarStudentNum +"명) 만큼 선발 됩니다.");
-				//if(this.gradingEnded()) // 성적처리가 마감되었는지 확인
-				this.inquiryScholarshipStudent();
+				if(this.gradingEnded()) { 			// 모든 학생의 성적 처리가 마감되어 있을 때
+					System.out.println("모든 학생들의 성적처리가 마감된 상태의 장학금 선발 대상 학생입니다.");
+					this.inquiryScholarshipStudent();
+
+				} else {							// 모든 학생의 성적 처리가 마감되지 않았을 때
+					System.out.println("모든 학생들의 성적처리가 마감되지 않은 상태의 장학금 선발 대상 학생입니다.");
+					this.inquiryScholarshipStudent();
+				}
+
 
 				break;
 
@@ -34,7 +41,7 @@ public class ManageScholar {
 				System.out.println("장학생 선발 학생 수 수정 완료.");
 				break;
 
-			case 7: // 종료
+			case 3: // 종료
 				System.out.println("종료합니다.");
 				run = false;
 				break;
@@ -44,7 +51,7 @@ public class ManageScholar {
 	}
 
 	private void inquiryScholarshipStudent() {	// 성적으로 정렬하여 선발 학생 수만큼 출력
-		
+
 		List<String> list = daog.getScholarList(scholarStudentNum);
 		int count = 1;
 		for(String u : list) {
@@ -56,20 +63,23 @@ public class ManageScholar {
 			System.out.println(count + ". 학번 : " + uId + "    이름 : " + uName + "    평균 학점 : "+uAvg);
 			count++;
 		}
+
+		// 다시한번 테이블을 확인해서 성적 기입이 다 안되어있다면 성적기입이 마감되지 않았다고 알려주고.
+		// 마감되었따면 장학 선발 완료되었다고 출력한다.
+
 	}
 
 	private boolean gradingEnded() {
-		if(!new ManageGrade().endGrading) // 성적처리가 이미 마감되었으면
-		{
-			// 주석은 수도 코드 이니 지우지말고 작성하면 된다 ***
-			// 성적에 null 없는지 확인
-			// if 성적에 null이 없으면 {
-			System.out.println("성적이 모두 기입되었지만 성적처리를 마감하지 않았습니다.");
-			String yesOrNo = this.inputString("성적처리를 마감하시겠습니까? (처리 : y ) ");
-			if(yesOrNo.equals("y"))
-				new ManageGrade().endGrading = true;
-			//			} else
-			//				System.out.println("성적이 기입되지 않은 것이 존재합니다.");
+		if(!new ManageGrade().endGrading) { 										// 성적처리 마감이 되지 않았을 때
+			boolean f = daog.checkGradeFinish();									// 성적 기입이 하나라도 안된게 있다면 false 반환
+			if(f) {																// 모든 학생의 성적 기입이 된 상태일 때
+				System.out.println("성적이 모두 기입되었지만 성적처리를 마감하지 않았습니다.");
+				String yesOrNo = this.inputString("성적처리를 마감하시겠습니까? (처리 : y ) ");
+				if(yesOrNo.equals("y"))
+					new ManageGrade().endGrading = true;
+			} else {															// 성적 기입이 안된 학생이 단 하나라도 존재할 때
+				System.out.println("성적이 기입되지 않은 것이 존재합니다.");
+			}
 		}
 		if(!new ManageGrade().endGrading)
 			System.out.println("성적처리가 마감되어 있지 않습니다.");
