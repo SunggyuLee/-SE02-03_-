@@ -154,11 +154,12 @@ public class ManageAttending {
 		String inquiryClassIdNum = this.inputString("강의계획서를 조회할 학수번호를 입력하세요 : ");
 	}
 
-	private void inquiryTimetable() {
+	private void inquiryTimetable() { //강의시간표 조회
 		List<Subject> list = daos.getSubjectList();
 		
-		for(Subject u : list) {
-			System.out.println(u);
+		for(Subject u : list) {//학수번호, 강의시간, 강의실, 최대수강인원
+			System.out.println("학수 번호 : " + u.getClassIdNum() + " 강의시간 : " + u.getClassTime() + " 강의실 : " + u.getClassRoom() +
+					" 최대수강인원 : " + u.getAvailNum());
 		}
 	}
 }
