@@ -24,22 +24,22 @@ public class ManageAllSubject {
 
 			switch (chooseWork) {
 			case 1: // 교과목 등록
-				System.out.println("교과목 등록을 시작합니다.");
+				System.out.println("> 교과목 등록을 시작합니다.");
 				this.enrollAllSubject();
 				break;
 
 			case 2: // 교과목 수정
-				System.out.println("교과목 수정을 시작합니다.");
+				System.out.println("> 교과목 수정을 시작합니다.");
 				this.modifyAllSubject();
 				break;
 				
 			case 3: // 교과목 삭제
-				System.out.println("교과목 삭제를 시작합니다.");
+				System.out.println("> 교과목 삭제를 시작합니다.");
 				this.deleteAllSubject();
 				break;
 				
 			case 7: // 종료
-				System.out.println("종료합니다.");
+				System.out.println("> 종료합니다.");
 				run = false;
 				break;
 			default:
@@ -48,34 +48,50 @@ public class ManageAllSubject {
 	}
 	
 	private void deleteAllSubject() {
-		List<AllSubject> list = daoa.getAllSubjectList();
+		List<AllSubject> as_list = daoa.getAllSubjectList();
 		
-		for(AllSubject u : list) {
-			System.out.println(u);
+		System.out.println("-------------------------- 교과목 목록 --------------------------");
+		int count = 1;
+		for (AllSubject u : as_list) {
+			if (count % 6 == 0) {
+				System.out.println();
+			}
+			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getSubjectName(), " "));
+			count++;
 		}
+		System.out.println();
+		System.out.println();
 		
-		String subjectName = this.inputString("삭제할 학번 : ");
+		String subjectName = this.inputString("> 삭제할 교과목 : ");
 		
 		allSubject.setSubjectName(subjectName);
 		
 		boolean r = daoa.deleteAllSubject(allSubject);
 		
 		if(r)
-			System.out.println("교과목삭제가 완료되었습니다.");
+			System.out.println("> 교과목 삭제가 완료되었습니다.");
 		else
-			System.out.println("교과목삭제가 실패하였습니다.");
+			System.out.println("> 교과목 삭제를 실패하였습니다.");
 	}
 	
 	private void modifyAllSubject() {
-		List<AllSubject> list = daoa.getAllSubjectList();
-		//처음에 전체가 아닌 교과목만 리스트 뜨게
-		for(AllSubject u : list) {
-			System.out.println("교과목 : " + u.getSubjectName());
-		}
+		List<AllSubject> as_list = daoa.getAllSubjectList();
 		
-		String subjectName = this.inputString("변동할 과목명 : ");
-		String profName = this.inputString("담당교수 : ");
-		Integer credit = this.inputInt("학점 : ");
+		System.out.println("-------------------------- 교과목 목록 --------------------------");
+		int count = 1;
+		for (AllSubject u : as_list) {
+			if (count % 6 == 0) {
+				System.out.println();
+			}
+			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getSubjectName(), " "));
+			count++;
+		}
+		System.out.println();
+		System.out.println();
+		
+		String subjectName = this.inputString("> 변동할 과목명 (ex.algorithm) : ");
+		String profName = this.inputString("> 담당교수 (ex.kimseongje) : ");
+		Integer credit = this.inputInt("> 학점 (ex.3) : ");
 		
 		allSubject.setSubjectName(subjectName);
 		allSubject.setProfName(profName);
@@ -84,28 +100,31 @@ public class ManageAllSubject {
 		boolean r = daoa.modifyAllSubject(allSubject);
 		
 		if(r)
-			System.out.println("교과목수정이 완료되었습니다.");
+			System.out.println("> 교과목 수정이 완료되었습니다.");
 		else
-			System.out.println("교과목수정이 실패하였습니다.");
+			System.out.println("> 교과목 수정을 실패하였습니다.");
 		
-		list = daoa.getAllSubjectList();
-		
-		for(AllSubject u : list) {
-			System.out.println(u);
-		}
 	}
 	
 	private void enrollAllSubject() {
 		//처음에 등록된 리스트 뜨게
-		List<AllSubject> allSubjectList = daoa.getAllSubjectList();
-		for (AllSubject a:
-			 allSubjectList) {
-			System.out.println("과목명 : " + a.getSubjectName());
+		List<AllSubject> as_list = daoa.getAllSubjectList();
+		
+		System.out.println("-------------------------- 교과목 목록 --------------------------");
+		int count = 1;
+		for (AllSubject u : as_list) {
+			if (count % 6 == 0) {
+				System.out.println();
+			}
+			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getSubjectName(), " "));
+			count++;
 		}
+		System.out.println();
+		System.out.println();
 
-		String subjectName = this.inputString("과목명 : ");
-		String profName = this.inputString("담당교수 : ");
-		Integer credit = this.inputInt("학점 : ");
+		String subjectName = this.inputString("> 과목명 (ex.algorithm) : ");
+		String profName = this.inputString("> 담당교수 (ex.kimseongje) : ");
+		Integer credit = this.inputInt("> 학점 (ex.3) : ");
 
 		allSubject.setSubjectName(subjectName);
 		allSubject.setProfName(profName);
@@ -114,15 +133,10 @@ public class ManageAllSubject {
 		boolean r = daoa.InsertAllSubject(allSubject);
 		
 		if(r)
-			System.out.println("교과목 등록이 완료되었습니다.");
+			System.out.println("> 교과목 등록이 완료되었습니다.");
 		else
-			System.out.println("교과목 등록이 실패하였습니다.");
+			System.out.println("> 교과목 등록을 실패하였습니다.");
 
-		List<AllSubject> list = daoa.getAllSubjectList();
-		
-		for(AllSubject u : list) {
-			System.out.println(u);
-		}
 	}
 
 	private int inputInt(String string) {

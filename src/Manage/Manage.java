@@ -13,32 +13,32 @@ public class Manage {
 
 			switch (chooseWork) {
 			case 1: // 학적 관리
-				System.out.println("학적 관리를 시작합니다.");
+				System.out.println("> 학적 관리를 시작합니다.");
 				new ManageRegister().run();
 				break;
 
 			case 2: // 교과 관리
-				System.out.println("교과 관리를 시작합니다.");
+				System.out.println("> 교과 관리를 시작합니다.");
 				new ManageAllSubject().run();
 				break;
 				
 			case 3: // 수강 관리
-				System.out.println("수강 관리를 시작합니다.");
+				System.out.println("> 수강 관리를 시작합니다.");
 				new ManageAttending().run();
 				break;
 				
 			case 4: // 성적 관리
-				System.out.println("성적 관리를 시작합니다.");
+				System.out.println("> 성적 관리를 시작합니다.");
 				new ManageGrade().run();
 				break;
 				
 			case 5: // 장학 관리
-				System.out.println("장학 관리를 시작합니다.");
+				System.out.println("> 장학 관리를 시작합니다.");
 				new ManageScholar().run();
 				break;
 				
 			case 7: // 로그아웃
-				System.out.println("종료합니다.");
+				System.out.println("> 종료합니다.");
 				run = false;
 				break;
 			default:

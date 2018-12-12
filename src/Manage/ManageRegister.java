@@ -65,9 +65,10 @@ public class ManageRegister {
 			if (count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%3s", "[" + count + "]" + u.getUserId()));
+			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getUserId(), " "));
 			count++;
 		}
+		System.out.println();
 		System.out.println();
 		
 		String userId = this.inputString("> 삭제할 학번 : ");
@@ -91,9 +92,10 @@ public class ManageRegister {
 			if (count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%3s", "[" + count + "]" + u.getUserId()));
+			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getUserId(), " "));
 			count++;
 		}
+		System.out.println();
 		System.out.println();
 		
 		String userId = this.inputString("> 변동할 학번 : ");
@@ -127,9 +129,10 @@ public class ManageRegister {
 			if (count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%3s", "[" + count + "]" + u.getUserId()));
+			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getUserId(), " "));
 			count++;
 		}
+		System.out.println();
 		System.out.println();
 
 		String userId = this.inputString("> 조회할 학번 : ");
@@ -155,9 +158,10 @@ public class ManageRegister {
 			if (count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%3s", "[" + count + "]" + u.getUserId()));
+			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getUserId(), " "));
 			count++;
 		}
+		System.out.println();
 		System.out.println();
 
 		String userId = this.inputString("> 학번 : ");
