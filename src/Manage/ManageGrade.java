@@ -22,7 +22,7 @@ public class ManageGrade {
 		while(run) {
 			System.out.println();System.out.println();
 			System.out.println("실행할 업무를 선택하세요.");
-			int chooseWork = this.inputInt("1.성적 등록  2.성적 수정  3.학생별 성적표 조회  7.종료 ");
+			int chooseWork = this.inputInt("1.성적 등록  2.성적 수정  3.학생별 성적표 조회  4.종료 ");
 
 			switch (chooseWork) {
 			case 1: // 성적 등록
@@ -48,7 +48,7 @@ public class ManageGrade {
 				this.checkReport();
 				break;
 				
-			case 7: // 종료
+			case 4: // 종료
 				System.out.println("종료합니다.");
 				run = false;
 				break;
@@ -62,7 +62,7 @@ public class ManageGrade {
 		DAOUser daou = DAOUser.sharedInstance();
 		List<User> list = daou.getStudentList();
 		for(User u : list) {
-			System.out.println(u);
+			System.out.println("학번 : " + u.getUserId());
 		}
 		String checkUserId = inputString("성적표를 조회할 학생의 학번 : ");
 		gradee.setUserId(checkUserId);
@@ -84,7 +84,7 @@ public class ManageGrade {
 		gradee.setUserId(UserId);
 		List<Grade> list2 = daog.getStudentReport(gradee);
 		for (Grade u:list2) {
-			System.out.println(u);
+			System.out.println("학번 : " + u.getUserId() + ", 학수번호 : "+ u.getClassIdNum() + ", 학번 : "+u.getGrade());
 		}
 		String classIdNum = inputString("성적을 수정할 학수 번호 : ");
 		Float newGrade = inputFloat("성적 : ");
@@ -113,7 +113,7 @@ public class ManageGrade {
 		gradee.setUserId(UserId);
 		List<Grade> list2 = daog.getStudentReport(gradee);
 		for (Grade u:list2) {
-			System.out.println(u);
+			System.out.println("학번 : " + u.getUserId() + ", 학수번호 : "+ u.getClassIdNum() + ", 학번 : "+u.getGrade());
 		}
 		String classIdNum = inputString("성적을 등록할 학수 번호 : ");
 		System.out.print("성적 : ");
