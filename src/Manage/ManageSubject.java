@@ -31,22 +31,22 @@ public class ManageSubject {
 
 			switch (chooseWork) {
 			case 1: // 개설 과목 등록
-				System.out.println("개설 과목을 등록합니다.");
+				System.out.println("> 개설 과목을 등록합니다.");
 				this.enrollSubject();
 				break;
 
 			case 2: // 개설 과목 수정
-				System.out.println("개설 과목을 수정합니다.");
+				System.out.println("> 개설 과목을 수정합니다.");
 				this.modifySubject();
 				break;
 
 			case 3: // 개설 과목 삭제
-				System.out.println("개설 과목을 삭제합니다.");
+				System.out.println("> 개설 과목을 삭제합니다.");
 				this.deleteSubject();
 				break;
 
 			case 7: // 종료
-				System.out.println("종료합니다.");
+				System.out.println("> 종료합니다.");
 				run = false;
 				break;
 			default:
@@ -68,16 +68,16 @@ public class ManageSubject {
 		}
 		System.out.println();
 
-		String classIdNum = this.inputString("삭제할 학수번호 : ");
+		String classIdNum = this.inputString("> 삭제할 학수번호 : ");
 
 		subject.setClassIdNum(classIdNum);
 
 		boolean r = daos.deleteSubject(subject);
 
 		if (r)
-			System.out.println("교과목삭제가 완료되었습니다.");
+			System.out.println("> 교과목삭제가 완료되었습니다.");
 		else
-			System.out.println("교과목삭제가 실패하였습니다.");
+			System.out.println("> 교과목삭제가 실패하였습니다.");
 	}
 
 	private void modifySubject() {
@@ -94,11 +94,11 @@ public class ManageSubject {
 		}
 		System.out.println();
 
-		String classIdNum = this.inputString("학수번호 (ex.algorithm-1) : ");
-		String classTime = this.inputString("강의시간 (ex.13-15) : ");
-		String classRoom = this.inputString("강의실 (ex.101) : ");
-		String syllabus = this.inputString("강의계획서 : ");
-		Integer availNum = this.inputInt("최대 수강 인원 (ex.30) : ");
+		String classIdNum = this.inputString("> 학수번호 (ex.algorithm-1) : ");
+		String classTime = this.inputString("> 강의시간 (ex.13-15) : ");
+		String classRoom = this.inputString("> 강의실 (ex.101) : ");
+		String syllabus = this.inputString("> 강의계획서 : ");
+		Integer availNum = this.inputInt("> 최대 수강 인원 (ex.30) : ");
 
 		subject.setClassIdNum(classIdNum);
 		subject.setClassTime(classTime);
@@ -136,12 +136,12 @@ public class ManageSubject {
 			boolean r2 = daos.modifySubject(subject);
 
 			if (r2)
-				System.out.println("교과목수정이 완료되었습니다.");
+				System.out.println("> 교과목수정이 완료되었습니다.");
 			else
-				System.out.println("교과목수정이 실패하였습니다.");
+				System.out.println("> 교과목수정이 실패하였습니다.");
 
 		} else {
-			System.out.println("해당 강의시간과 강의실에 이미 다른수업이 있습니다. ");
+			System.out.println("> 해당 강의시간과 강의실에 이미 다른수업이 있습니다. ");
 		}
 
 	}
@@ -160,12 +160,12 @@ public class ManageSubject {
 		}
 		System.out.println();
 
-		String subjectName = this.inputString("과목명 (ex.algorithm) : ");
-		String classNum = this.inputString("분반 (ex.1) : ");
-		String classTime = this.inputString("강의시간 (ex.13-15) : ");
-		String classRoom = this.inputString("강의실 (ex.101) : ");
-		String syllabus = this.inputString("강의계획서 : ");
-		Integer availNum = this.inputInt("최대 수강 인원 (ex.30) : ");
+		String subjectName = this.inputString("> 과목명 (ex.algorithm) : ");
+		String classNum = this.inputString("> 분반 (ex.1) : ");
+		String classTime = this.inputString("> 강의시간 (ex.13-15) : ");
+		String classRoom = this.inputString("> 강의실 (ex.101) : ");
+		String syllabus = this.inputString("> 강의계획서 : ");
+		Integer availNum = this.inputInt("> 최대 수강 인원 (ex.30) : ");
 
 		subject.setClassIdNum(subjectName + "-" + classNum);
 		subject.setSubjectName(subjectName);
@@ -205,12 +205,12 @@ public class ManageSubject {
 			boolean r2 = daos.InsertSubject(subject);
 
 			if (r2)
-				System.out.println("교과목 등록이 완료되었습니다.");
+				System.out.println("> 교과목 등록이 완료되었습니다.");
 			else
-				System.out.println("교과목 등록이 실패하였습니다.");
+				System.out.println("> 교과목 등록이 실패하였습니다.");
 
 		} else {
-			System.out.println("해당 강의시간과 강의실에 이미 다른수업이 있습니다. ");
+			System.out.println("> 해당 강의시간과 강의실에 이미 다른수업이 있습니다. ");
 		}
 	}
 

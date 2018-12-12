@@ -15,14 +15,14 @@ public class LogInSignIn {
 
 		int loginORsignin = inputInt("SE 03조 TERM PROJECT에 오신 것을 환영합니다. (1.로그인  2.회원가입  9.종료) ");
 		if (loginORsignin == 1) {
-			System.out.println("로그인을 해주세요.");
+			System.out.println("> 로그인을 해주세요.");
 			new LogIn().run();
 		} else if (loginORsignin == 2) {
-			System.out.println("회원가입을 해주세요.");
+			System.out.println("> 회원가입을 해주세요.");
 			new SignIn().run();
 			this.run();
 		} else if (loginORsignin == 9)
-			System.out.println("종료합니다.");
+			System.out.println("> 종료합니다.");
 		else
 			this.run();
 	}
