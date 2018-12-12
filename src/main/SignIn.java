@@ -10,7 +10,7 @@ public class SignIn {
 	Scanner scan = new Scanner(System.in);
 
 	public void run() {
-		String userId = this.inputString("> 아이디 : ");
+		String userId = this.inputString("> 아이디(학번) : ");
 		String pwd = this.inputString("> 비밀번호 : ");
 		String name = this.inputString("> 성명 (ex.kimseongje) : ");
 		String birth = this.inputString("> 생년월일 (ex.19940216) : ");

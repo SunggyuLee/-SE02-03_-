@@ -113,6 +113,11 @@ public class DAOUser {
 				pstmt.setString(1, user.getUserId());
 				pstmt.setString(2, user.getPwd());
 				pstmt.setString(3, user.getName());
+				if((user.getBirth()).length() != 8) {			// 생년월일이 8자리가 아니면 false
+					pstmt.close();
+					this.close();
+					return false;
+				}
 				pstmt.setString(4, user.getBirth());
 				pstmt.setString(5, user.getAddr());
 				pstmt.setString(6, user.getPhoneNum());

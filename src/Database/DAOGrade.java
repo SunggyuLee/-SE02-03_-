@@ -183,7 +183,7 @@ public class DAOGrade {
 		return result;
 	}
 
-	public List getStudentReport(Grade grade) { //학생별 성적표 조회
+	public List getStudentReport(Grade grade) { 									// 학생별 성적표 조회
 		List<Grade> list = null;
 		Grade grade1 = new Grade();
 		String sql = "SELECT * FROM grade where userId='"+ grade.getUserId()+"'";
