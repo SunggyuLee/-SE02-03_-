@@ -46,7 +46,6 @@ public class DAOUser {
 
 		try{
 			conn = DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
-			System.out.println("\n- MySQL Connection");
 			result = true;
 		} catch (Exception e) {
 			System.out.println("연결 실패 : " +e.getMessage());
