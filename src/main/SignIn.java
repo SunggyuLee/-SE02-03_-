@@ -11,14 +11,12 @@ public class SignIn {
 	public void run() {
 		String userId = this.inputString("아이디 : ");
 		String pwd = this.inputString("비밀번호 : ");
-		String name = this.inputString("성명 (ex. 이성규) : ");
-		String birth = this.inputString("생년월일 (ex. 19940216) : ");
+		String name = this.inputString("성명 (ex.이성규) : ");
+		String birth = this.inputString("생년월일 (ex.19940216) : ");
 		String addr = this.inputString("주소 : ");
 		String phoneNum = this.inputString("전화번호 : ");
 		
-		// 사용자 테이블에 회원가입 정보가 저장된다 // 회원가입된 정보도 한번 보여줘?
-		
-		
+		// 사용자 테이블에 회원가입 정보가 저장된다
 		DAOUser dao = DAOUser.sharedInstance();
 		User user = new User();
 		user.setUserId(userId);
@@ -35,12 +33,6 @@ public class SignIn {
 		else
 			System.out.println("회원가입이 실패하였습니다.");
 
-		// 저장된 거 확인 겸 select 해봄
-		List<User> list = dao.getUserList();
-		
-		for(User u : list) {
-			System.out.println(u);
-		}
 	}
 
 	private int inputInt(String string) {
