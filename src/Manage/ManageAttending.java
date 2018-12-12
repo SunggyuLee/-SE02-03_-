@@ -63,10 +63,29 @@ public class ManageAttending {
 			}
 		}
 	}
-	
-	private void deleteClass() {
-		
-	}
+
+    private void deleteClass() { //수강 취소
+        String deleteClassIdNum = this.inputString("수강 취소할 학수번호 : ");
+        String deleteUserId = this.inputString("수강 취소할 학생의 학번 : ");
+        Grade grade = new Grade();
+        grade.setClassIdNum(deleteClassIdNum);
+        grade.setUserId(deleteUserId);
+        boolean r = daog.deleteGrade(grade);
+        if (r)
+            System.out.println("수강 취소가 완료되었습니다.");
+        else
+            System.out.println("수강 취소가 실패하였습니다.");
+    }
+
+    private int inputInt(String string) {
+        System.out.print(string);
+        return Integer.parseInt(scan.nextLine());
+    }
+
+    private String inputString(String string) {
+        System.out.print(string);
+        return scan.nextLine();
+    }
 
 	private void attendClass() {
 		String newAttenduserId = this.inputString("수강 신청할 학생의 학번 : ");
@@ -132,28 +151,5 @@ public class ManageAttending {
 		for(Subject u : list) {
 			System.out.println(u);
 		}
-	}
-
-	private void deleteClass() { //수강 취소
-		String deleteClassIdNum = this.inputString("수강 취소할 학수번호 : ");
-		String deleteUserId = this.inputString("수강 취소할 학생의 학번 : ");
-		Grade grade = new Grade();
-		grade.setClassIdNum(deleteClassIdNum);
-		grade.setUserId(deleteUserId);
-		boolean r = daog.deleteGrade(grade);
-		if (r)
-			System.out.println("수강 취소가 완료되었습니다.");
-		else
-			System.out.println("수강 취소가 실패하였습니다.");
-	}
-
-	private int inputInt(String string) {
-		System.out.print(string);
-		return Integer.parseInt(scan.nextLine());
-	}
-
-	private String inputString(String string) {
-		System.out.print(string);
-		return scan.nextLine();
 	}
 }
