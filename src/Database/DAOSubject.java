@@ -13,7 +13,7 @@ public class DAOSubject {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost:3306/se_term_1?autoReconnect=true&useSSL=false";
 	static final String USERNAME = "root";
-	static final String PASSWORD = "admin";
+	static final String PASSWORD = "201402408";
 
 	static {
 		try {
@@ -193,7 +193,7 @@ public class DAOSubject {
 	public List<Subject> inquirySubjectList(String classIdNum) {
 		List<Subject> list = null;
 		String sql = "SELECT * FROM subject WHERE classIdNum='" + classIdNum + "'";
-		if (connect()) {
+		if (this.connect()) {
 			try {
 				stmt = conn.createStatement();
 				if (stmt != null) {
@@ -214,6 +214,8 @@ public class DAOSubject {
 						list.add(subject);
 					}
 				}
+				stmt.close();
+				this.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -250,6 +252,8 @@ public class DAOSubject {
 						list.add(subject);
 					}
 				}
+				stmt.close();
+				this.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -285,6 +289,8 @@ public class DAOSubject {
 						list.add(subject);
 					}
 				}
+				stmt.close();
+				this.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -320,6 +326,8 @@ public class DAOSubject {
 						list.add(s);
 					}
 				}
+				stmt.close();
+				this.close();
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
@@ -341,6 +349,8 @@ public class DAOSubject {
 					rs = stmt.executeQuery(sql);
 					temp = rs.getString("subjectName") +"#"+ rs.getString("syllabus");
 				}
+				stmt.close();
+				this.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

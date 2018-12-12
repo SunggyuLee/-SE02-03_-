@@ -137,7 +137,7 @@ public class ManageRegister {
 		
 		List<User> info = daou.inquiryStudent(userId);
 		
-		if (info == null) {
+		if (info.size() == 0) {
 			System.out.println("> 해당 학생이 존재하지 않습니다.");
 		} else {
 			System.out.println("[학생정보]");
