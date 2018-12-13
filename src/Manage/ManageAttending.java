@@ -148,6 +148,7 @@ public class ManageAttending {
 			gradee.setUserId(newAttenduserId);
 			gradee.setGrade((float) 0);
 			daog.InsertGrade(gradee);
+			System.out.println("> 수강 신청이 완료되었습니다.");
 		}
 		
 	}

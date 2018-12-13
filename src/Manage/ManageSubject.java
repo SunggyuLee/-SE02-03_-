@@ -74,7 +74,7 @@ public class ManageSubject {
 		System.out.println();
 		System.out.println();
 
-		String classIdNum = this.inputString("> 삭제할 학수번호 : ");
+		String classIdNum = this.inputString("> 삭제할 학수번호 (ex.algorithm-1) : ");
 
 		subject.setClassIdNum(classIdNum);
 
