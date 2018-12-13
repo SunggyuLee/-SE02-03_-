@@ -54,6 +54,7 @@ public class ManageAllSubject {
 		if (as_list.size() == 0) {
 			System.out.println("> 등록된 교과목이 없습니다.");
 			this.run();
+			return;
 		}
 
 		System.out.println("-------------------------- 교과목 목록 --------------------------");
@@ -86,6 +87,7 @@ public class ManageAllSubject {
 		if (as_list.size() == 0) {
 			System.out.println("> 등록된 교과목이 없습니다.");
 			this.run();
+			return;
 		}
 
 		System.out.println("-------------------------- 교과목 목록 --------------------------");

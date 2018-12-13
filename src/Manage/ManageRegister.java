@@ -58,10 +58,11 @@ public class ManageRegister {
 
 	private void deleteStudent() {
 		List<User> u_list = daou.getStudentList();
-		
+
 		if (u_list.size() == 0) {
 			System.out.println("> 등록된 학생이 없습니다.");
 			this.run();
+			return;
 		}
 
 		System.out.println("-------------------------- 학번 목록 --------------------------");
@@ -75,7 +76,7 @@ public class ManageRegister {
 		}
 		System.out.println();
 		System.out.println();
-		
+
 		String userId = this.inputString("> 삭제할 학번 : ");
 
 		user.setUserId(userId);
@@ -90,10 +91,11 @@ public class ManageRegister {
 
 	private void modifyStudent() { // 학적 수정
 		List<User> u_list = daou.getStudentList();
-		
+
 		if (u_list.size() == 0) {
 			System.out.println("> 등록된 학생이 없습니다.");
 			this.run();
+			return;
 		}
 
 		System.out.println("-------------------------- 학번 목록 --------------------------");
@@ -107,7 +109,7 @@ public class ManageRegister {
 		}
 		System.out.println();
 		System.out.println();
-		
+
 		String userId = this.inputString("> 수정할 학번 : ");
 		String pwd = this.inputString("> 비밀번호 : ");
 		String name = this.inputString("> 성명 (ex.kimseongje) : ");
@@ -147,15 +149,15 @@ public class ManageRegister {
 
 		String userId = this.inputString("> 조회할 학번 : ");
 		user.setUserId(userId);
-		
+
 		List<User> info = daou.inquiryStudent(userId);
-		
+
 		if (info.size() == 0) {
 			System.out.println("> 해당 학생이 존재하지 않습니다.");
 		} else {
 			System.out.println(info.get(0));
 		}
-		
+
 	}
 
 	private void enrollStudent() { // 학적 등록

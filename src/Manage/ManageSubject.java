@@ -60,6 +60,7 @@ public class ManageSubject {
 		if (list.size() == 0) {
 			System.out.println("> 등록된 개설 과목이 없습니다.");
 			this.run();
+			return;
 		}
 
 		System.out.println("-------------------------- 개설 과목 목록 --------------------------");
@@ -91,6 +92,7 @@ public class ManageSubject {
 		if (list.size() == 0) {
 			System.out.println("> 등록된 개설 과목이 없습니다.");
 			this.run();
+			return;
 		}
 
 		System.out.println("-------------------------- 개설 과목 목록 --------------------------");
@@ -110,6 +112,12 @@ public class ManageSubject {
 		String classRoom = this.inputString("> 강의실 (ex.101) : ");
 		String syllabus = this.inputString("> 강의계획서 : ");
 		Integer availNum = this.inputInt("> 최대 수강 인원 (ex.30) : ");
+
+		if (!classTime.contains("-")) {
+			System.out.println("> 강의시간 입력 형식을 맞춰주세요.");
+			this.modifySubject();
+			return;
+		}
 
 		subject.setClassIdNum(classIdNum);
 		subject.setClassTime(classTime);
@@ -177,6 +185,12 @@ public class ManageSubject {
 		String classRoom = this.inputString("> 강의실 (ex.101) : ");
 		String syllabus = this.inputString("> 강의계획서 : ");
 		Integer availNum = this.inputInt("> 최대 수강 인원 (ex.30) : ");
+
+		if (!classTime.contains("-")) {
+			System.out.println("> 강의시간 입력 형식을 맞춰주세요.");
+			this.enrollSubject();
+			return;
+		}
 
 		subject.setClassIdNum(subjectName + "-" + classNum);
 		subject.setSubjectName(subjectName);

@@ -83,6 +83,7 @@ public class ManageGrade {
 		if (list2.size() == 0) {
 			System.out.println("해당 학생의 성적표가 존재하지 않습니다. 다시 확인해주세요.");
 			this.checkReport();
+			return;
 		}
 
 		System.out.println("-------------------------- 성적표 --------------------------");
@@ -119,19 +120,27 @@ public class ManageGrade {
 		List<Grade> list2 = daog.getStudentReport(gradee);
 
 		if (list2.size() == 0) {
-			System.out.println("해당 학생의 성적표가 존재하지 않습니다. 다시 확인해주세요.");
+			System.out.println("> 해당 학생의 성적표가 존재하지 않습니다. 다시 확인해주세요.");
 			this.fixGrade();
+			return;
 		}
 
+		boolean isComplete = false;
 		System.out.println("------------------------ 처리된 성적 목록 ------------------------");
 		int count2 = 1;
 		for (Grade u : list2) {
 			if (u.getGrade() != 0.0) {
 				System.out.println(count2 + "| 처리 상태 : 등록 | 학수 번호 : " + u.getClassIdNum() + " | 학점 : " + u.getGrade());
+				isComplete = true;
 			}
 			count2++;
 		}
 		System.out.println();
+
+		if (!isComplete) {
+			System.out.println("> 해당 학생의 처리된 성적이 없습니다. 성적 처리를 완료해주세요.");
+			return;
+		}
 
 		String classIdNum = this.inputString("> 성적을 수정할 학수 번호 (ex.algorithm-1) : ");
 		Float newGrade = this.inputFloat("> 성적 (ex.4.0) : ");
@@ -139,6 +148,7 @@ public class ManageGrade {
 		if (!(newGrade > 0 && newGrade <= 4.5)) {
 			System.out.println("> 성적은 1.0 이상 4.5 이하 이여야 합니다.");
 			this.fixGrade();
+			return;
 		}
 
 		gradee.setClassIdNum(classIdNum);
@@ -191,6 +201,7 @@ public class ManageGrade {
 		if (!(newGrade > 0 && newGrade <= 4.5)) {
 			System.out.println("> 성적은 1.0 이상 4.5 이하 이여야 합니다.");
 			this.giveGrade();
+			return;
 		}
 
 		gradee.setClassIdNum(classIdNum);

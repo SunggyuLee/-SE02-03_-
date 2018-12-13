@@ -109,6 +109,13 @@ public class ManageAttending {
 		String newAttendClassIdNum = this.inputString("> 수강 신청할 학수 번호 (ex.algorithm-1) : ");
 
 		List<Subject> SubjectofNew = daos.inquirySubjectList(newAttendClassIdNum);
+
+		if (SubjectofNew.size() == 0) {
+			System.out.println("> 존재하지 않는 학수 번호입니다.");
+			this.attendClass();
+			return;
+		}
+
 		String classTime = null;
 		String classStime = null, classEtime = null;
 
@@ -215,8 +222,13 @@ public class ManageAttending {
 		String search = this.inputString("> 강의계획서를 조회할 학수 번호를 입력하세요 (ex.algorithm-1) : ");
 		String[] result = daos.getSyllabusAndSubjectName(search).split("#");
 
-		System.out.println("[과목명 : " + result[0] + "]");
-		System.out.println("강의 계획 내용 : " + result[1]);
+		if (result[0] == "") {
+			System.out.println("> 해당 학수 번호의 강의계획서가 존재하지 않습니다.");
+			this.inquirySyllabus();
+		} else {
+			System.out.println("[과목명 : " + result[0] + "]");
+			System.out.println("강의 계획 내용 : " + result[1]);
+		}
 
 	}
 
