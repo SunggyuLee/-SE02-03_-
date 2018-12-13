@@ -105,7 +105,6 @@ public class ManageGrade {
             System.out.println("성적 수정이 실패하였습니다.");
 	}
 
-	@SuppressWarnings("unchecked")
 	private void giveGrade() {
 		// 학수번호와 학번 입력하고 성적등록
 		// 성적이 존재하면 등록 불가하게
@@ -131,7 +130,9 @@ public class ManageGrade {
 		}
 		String classIdNum = inputString("> 성적을 등록할 학수 번호 : ");
 		System.out.print("> 성적 : ");
-		Float newGrade = scan.nextFloat();							// 성적 입력받음
+		
+		Scanner scan2 = new Scanner(System.in);
+		Float newGrade = scan2.nextFloat();							// 성적 입력받음
 		
 		gradee.setClassIdNum(classIdNum);
 		gradee.setGrade(newGrade);

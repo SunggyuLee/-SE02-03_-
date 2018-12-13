@@ -347,6 +347,7 @@ public class DAOSubject {
 				stmt = conn.createStatement();
 				if (stmt != null) {
 					rs = stmt.executeQuery(sql);
+					rs.next();
 					temp = rs.getString("subjectName") +"#"+ rs.getString("syllabus");
 				}
 				stmt.close();
