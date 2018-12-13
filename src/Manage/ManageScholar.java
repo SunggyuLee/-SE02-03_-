@@ -24,7 +24,7 @@ public class ManageScholar {
 
 			switch (chooseWork) {
 			case 1: // 장학생 조회
-				System.out.println("> 장학생을 조회합니다. 장학생은 지정된 학생 수(" + scholarStudentNum + "명) 만큼 선발 됩니다.");
+				System.out.println("> 장학생을 조회합니다. 장학생은 지정된 학생 수 (" + scholarStudentNum + "명) 만큼 선발 됩니다.");
 				if (this.gradingEnded()) { // 모든 학생의 성적 처리가 마감되어 있을 때
 					System.out.println("> 최종 장학금 선발 대상 학생입니다.");
 					this.inquiryScholarshipStudent();
@@ -64,7 +64,7 @@ public class ManageScholar {
 			System.out.println(count + "| 학번 : " + uId + " | 이름 : " + uName + " | 평균 학점 : " + uAvg);
 			count++;
 		}
-		
+
 	}
 
 	private boolean gradingEnded() {
@@ -73,15 +73,21 @@ public class ManageScholar {
 			if (f) {
 				System.out.println("> 성적이 모두 처리 되었습니다.");
 				String yesOrNo = this.inputString("> 성적 처리를 마감하시겠습니까? (처리 : Y/N) ");
-				
+
 				if (yesOrNo.equals("Y"))
 					new ManageGrade().endGrading = true;
+				else if (yesOrNo.equals("N")) {
+					new ManageGrade().endGrading = false;
+				} else {
+					System.out.println("> 올바르지 않은 입력입니다.");
+					this.gradingEnded();
+				}
 			}
 		}
-		
+
 		if (!new ManageGrade().endGrading)
 			System.out.println("> 성적 처리가 마감되지 않았습니다. 성적 처리 완료 후 마감을 해야합니다.");
-		
+
 		return new ManageGrade().endGrading;
 	}
 

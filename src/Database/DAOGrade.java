@@ -106,7 +106,7 @@ public class DAOGrade {
 
 		if (this.connect()) {
 			try {
-				String sql = "INSERT INTO grade VALUES (?, ?, ?)";
+				String sql = "INSERT INTO grade VALUES (?, ?, ?);";
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 
 				pstmt.setString(1, grade.getClassIdNum());
@@ -222,13 +222,14 @@ public class DAOGrade {
 		if (this.connect()) {
 			try {
 				String sql = "UPDATE grade set grade=" + grade.getGrade() + " " + "WHERE classIdNum ='"
-						+ grade.getClassIdNum() + "' and userId='" + grade.getUserId() + "'";
+						+ grade.getClassIdNum() + "' and userId='" + grade.getUserId() + "';";
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 
 				int r = pstmt.executeUpdate();
 
 				if (r > 0) {
-					result = true;
+					result = true; // 수정한 학생에 대해서 해당 학생 정보의 평균 학점을 업데이트 시킴.
+					autoUpdateAVG(grade.getUserId());
 				}
 				// 데이터베이스 생성 객체 해제
 				pstmt.close();
@@ -243,20 +244,21 @@ public class DAOGrade {
 		return result;
 	}
 
-	public boolean modifyGrade(Grade grade) {
+	public boolean modifyGrade(Grade grade) { // 성적 수정
 		boolean result = false;
 
 		if (this.connect()) {
 			try {
 				String sql = "UPDATE grade set grade=" + grade.getGrade() + " " + "WHERE classIdNum ='"
-						+ grade.getClassIdNum() + "' and userId='" + grade.getUserId() + "'";
+						+ grade.getClassIdNum() + "' and userId='" + grade.getUserId() + "';";
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-
 				int r = pstmt.executeUpdate();
+				if (r > 0) { // 성적 수정시 유저 객체의 평균 성적 업데이트
+					autoUpdateAVG(grade.getUserId());
 
-				if (r > 0) {
 					result = true;
 				}
+
 				// 데이터베이스 생성 객체 해제
 				pstmt.close();
 				this.close();
@@ -268,6 +270,29 @@ public class DAOGrade {
 			System.exit(0);
 		}
 		return result;
+	}
+
+	public void autoUpdateAVG(String userId) {
+
+		if (this.connect()) {
+			try {
+				String sql = "UPDATE user\r\n"
+						+ "SET avgGrade = (select a FROM (select userId, avg(grade) AS a from grade where grade > 0 and userId = "
+						+ userId + " group by userId)cnt)\r\n" + "WHERE user.userId = '" + userId + "';";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.executeUpdate();
+
+				// 데이터베이스 생성 객체 해제
+				pstmt.close();
+				this.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		} else {
+			System.out.println("데이터베이스 연결에 실패");
+			System.exit(0);
+		}
+
 	}
 
 	// 장학생 선발시 수행, 지정된 수만큼의 학생의 ( 학생 id + 이름 + 평균 학점 ) 등수 순으로 반환
