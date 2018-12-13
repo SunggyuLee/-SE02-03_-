@@ -14,42 +14,45 @@ public class ManageGrade {
 	String userId;
 	Float grade;
 	Scanner scan = new Scanner(System.in);
+	Scanner scan2 = new Scanner(System.in);
 	DAOGrade daog = DAOGrade.sharedInstance();
+	DAOUser daou = DAOUser.sharedInstance();
 	Grade gradee = new Grade();
 
 	public void run() {
 		boolean run = true;
-		while(run) {
-			System.out.println();System.out.println();
+		while (run) {
+			System.out.println();
+			System.out.println();
 			System.out.println("실행할 업무를 선택하세요.");
 			int chooseWork = this.inputInt("1.성적 등록  2.성적 수정  3.학생별 성적표 조회  4.종료 ");
 
 			switch (chooseWork) {
 			case 1: // 성적 등록
-				if(endGrading)
-					System.out.println("성적처리가 이미 끝났습니다.");
+				if (endGrading)
+					System.out.println("> 성적 처리가 마감되었습니다.");
 				else {
-					System.out.println("성적 등록을 시작합니다.");					// 성적 등록을 시작학기 전에 성적등록이 하나라도 되어있지 않은 학생들의 리스트를 출력한다.
+					System.out.println("> 성적 등록을 시작합니다.");
 					this.giveGrade();
 				}
 				break;
 
 			case 2: // 성적 수정
-				if(endGrading)
-					System.out.println("성적처리가 이미 끝났습니다.");
+				if (endGrading)
+					System.out.println("> 성적 처리가 마감되었습니다.");
 				else {
-					System.out.println("성적 수정을 시작합니다.");					// 수정 전 모든 학생의 리스트를 출력한다.
+					System.out.println("> 성적 수정을 시작합니다.");
 					this.fixGrade();
 				}
 				break;
-				
+
 			case 3: // 학생별 성적표 조회
-				System.out.println("학생별 성적표 조회를 시작합니다.");
+				System.out.println("> 학생별 성적표 조회를 시작합니다.");
 				this.checkReport();
 				break;
-				
+
 			case 4: // 종료
-				System.out.println("종료합니다.");
+				System.out.println("> 종료합니다.");
 				run = false;
 				break;
 			default:
@@ -57,99 +60,149 @@ public class ManageGrade {
 		}
 	}
 
-	private void checkReport() { 									//학생별 성적표 조회
-		DAOUser daou = DAOUser.sharedInstance();
-		List<User> list = daou.getStudentList();
-		for(User u : list) {
-			System.out.println("학번 : " + u.getUserId());
-		}
-		String checkUserId = inputString("> 성적표를 조회할 학생의 학번 : ");
-		gradee.setUserId(checkUserId);
-		List<Grade> list2 = daog.getStudentReport(gradee);
-		if (list2.size() == 0) {
-			System.out.println("조회할 리스트가 없습니다.");
-		}
-		else {
-			for (Grade u:list2) {
-				System.out.println("학번 : " + u.getUserId() + ", 학수번호 : "+ u.getClassIdNum() + ", 학점 : "+u.getGrade());
+	private void checkReport() { // 학생별 성적표 조회
+		List<User> u_list = daou.getStudentList();
+
+		System.out.println("-------------------------- 학번 목록 --------------------------");
+		int count = 1;
+		for (User u : u_list) {
+			if (count % 6 == 0) {
+				System.out.println();
 			}
+			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getUserId(), " "));
+			count++;
 		}
+		System.out.println();
+		System.out.println();
+
+		String UserId = this.inputString("> 성적표를 조회할 학생의 학번 : ");
+		gradee.setUserId(UserId);
+
+		List<Grade> list2 = daog.getStudentReport(gradee);
+
+		if (list2.size() == 0) {
+			System.out.println("해당 학생의 성적표가 존재하지 않습니다. 다시 확인해주세요.");
+			this.checkReport();
+		}
+
+		System.out.println("-------------------------- 성적표 --------------------------");
+		int count2 = 1;
+		for (Grade u : list2) {
+			if (u.getGrade() == 0.0) {
+				System.out.println(count2 + "| 처리 상태 : 미등록 | 학수 번호 : " + u.getClassIdNum() + " | 학점 : " + u.getGrade());
+			} else {
+				System.out.println(count2 + "| 처리 상태 : 등록 | 학수 번호 : " + u.getClassIdNum() + " | 학점 : " + u.getGrade());
+			}
+			count2++;
+		}
+
 	}
 
-	private void fixGrade() {
-		// 학수번호와 학번 입력하고 성적수정
-		// 성적이 존재하면 수정 가능하게
-		String UserId = inputString("> 성적을 수정할 학생의 학번 : ");
-		gradee.setUserId(UserId);
-		List<Grade> list2 = daog.getStudentReport(gradee);
-		for (Grade u:list2) {
-			System.out.println("학번 : " + u.getUserId() + ", 학수번호 : "+ u.getClassIdNum() + ", 학점 : "+u.getGrade());
+	private void fixGrade() { // 성적 수정
+		List<User> u_list = daou.getStudentList();
+
+		System.out.println("-------------------------- 학번 목록 --------------------------");
+		int count = 1;
+		for (User u : u_list) {
+			if (count % 6 == 0) {
+				System.out.println();
+			}
+			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getUserId(), " "));
+			count++;
 		}
-		String classIdNum = inputString("> 성적을 수정할 학수 번호 : ");
-		Float newGrade = inputFloat("> 성적 : ");
-		
+		System.out.println();
+		System.out.println();
+
+		String UserId = this.inputString("> 성적을 수정할 학생의 학번 : ");
+		gradee.setUserId(UserId);
+
+		List<Grade> list2 = daog.getStudentReport(gradee);
+
+		if (list2.size() == 0) {
+			System.out.println("해당 학생의 성적표가 존재하지 않습니다. 다시 확인해주세요.");
+			this.fixGrade();
+		}
+
+		System.out.println("------------------------ 처리된 성적 목록 ------------------------");
+		int count2 = 1;
+		for (Grade u : list2) {
+			if (u.getGrade() != 0.0) {
+				System.out.println(count2 + "| 처리 상태 : 등록 | 학수 번호 : " + u.getClassIdNum() + " | 학점 : " + u.getGrade());
+			}
+			count2++;
+		}
+		System.out.println();
+
+		String classIdNum = this.inputString("> 성적을 수정할 학수 번호 (ex.algorithm-1) : ");
+		Float newGrade = this.inputFloat("> 성적 (ex.4.0) : ");
+
+		if (!(newGrade > 0 && newGrade <= 4.5)) {
+			System.out.println("> 성적은 1.0 이상 4.5 이하 이여야 합니다.");
+			this.fixGrade();
+		}
+
 		gradee.setClassIdNum(classIdNum);
 		gradee.setGrade(newGrade);
-		
+
 		boolean r = daog.modifyGrade(gradee);
-        
-		list2 = daog.getStudentReport(gradee);
-		for (Grade u:list2) {
-			System.out.println("학번 : " + u.getUserId() + ", 학수번호 : "+ u.getClassIdNum() + ", 학점 : "+u.getGrade());
-		}
-		
-        if (r) {
-            System.out.println("성적 수정이 완료되었습니다.");
-        }
-        else
-            System.out.println("성적 수정이 실패하였습니다.");
+
+		if (r) {
+			System.out.println("> 성적 수정이 완료되었습니다.");
+		} else
+			System.out.println("> 성적 수정을 실패하였습니다.");
+
 	}
 
-	@SuppressWarnings("unchecked")
-	private void giveGrade() {
-		// 학수번호와 학번 입력하고 성적등록
-		// 성적이 존재하면 등록 불가하게
-		
-		
-		// 성적 등록 전 모든 모든 학생의 리스트를 출력한다.
-		System.out.println("***모든 학생의 학번 출력***");
-		List<String> userList = daog.getUserList();
-		int count1 = 1;
-		for(String s : userList) {
-			System.out.println(count1 + ". "+ s);
-			count1++;
+	private void giveGrade() { // 성적 처리
+		List<User> u_list = daou.getStudentList();
+
+		System.out.println("-------------------------- 학번 목록 --------------------------");
+		int count = 1;
+		for (User u : u_list) {
+			if (count % 6 == 0) {
+				System.out.println();
+			}
+			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getUserId(), " "));
+			count++;
 		}
-		
-		
-		
-		String UserId = inputString("> 성적을 등록할 학생의 학번 : ");
-		System.out.println("*** 학수번호에 해당하는 학점이 0이면 아직 등록되지 않은 상태입니다. ***");
+		System.out.println();
+		System.out.println();
+
+		String UserId = this.inputString("> 성적을 등록할 학생의 학번 : ");
 		gradee.setUserId(UserId);
+
 		List<Grade> list2 = daog.getStudentReport(gradee);
-		for (Grade u:list2) {
-			System.out.println("학번 : " + u.getUserId() + ", 학수번호 : " + u.getClassIdNum() + ", 학점 : " + u.getGrade());
+
+		System.out.println("-------------------------- 성적 목록 --------------------------");
+		int count2 = 1;
+		for (Grade u : list2) {
+			if (u.getGrade() == 0.0) {
+				System.out.println(count2 + "| 처리 상태 : 미등록 | 학수 번호 : " + u.getClassIdNum() + " | 학점 : " + u.getGrade());
+			} else {
+				System.out.println(count2 + "| 처리 상태 : 등록 | 학수 번호 : " + u.getClassIdNum() + " | 학점 : " + u.getGrade());
+			}
+			count2++;
 		}
-		String classIdNum = inputString("> 성적을 등록할 학수 번호 : ");
-		System.out.print("> 성적 : ");
-		Float newGrade = scan.nextFloat();							// 성적 입력받음
-		
+		System.out.println();
+
+		String classIdNum = this.inputString("> 성적을 등록할 학수 번호 (ex.algorithm-1) : ");
+		Float newGrade = this.inputFloat("> 성적 (ex.4.0) : ");
+
+		if (!(newGrade > 0 && newGrade <= 4.5)) {
+			System.out.println("> 성적은 1.0 이상 4.5 이하 이여야 합니다.");
+			this.giveGrade();
+		}
+
 		gradee.setClassIdNum(classIdNum);
 		gradee.setGrade(newGrade);
-		
-		boolean r = daog.registerGrade(gradee);						// grade객체의 성적을 등록
-        
-		list2 = daog.getStudentReport(gradee);						// 변경된 해당 학생의 성적표 출력
-		System.out.println("해당 학생의 변경된 성적표를 출력합니다.");
-		for (Grade u:list2) {
-			System.out.println("학번 : " + u.getUserId() +", 학수번호 : " + u.getClassIdNum() + ", 학점 : " + u.getGrade());
-		}
-		
-        if (r) {
-            System.out.println("성적 등록이 완료되었습니다.");
-        }
-        else
-            System.out.println("성적 등록이 실패하였습니다.");
-		
+
+		boolean r = daog.registerGrade(gradee);
+
+		if (r) {
+			System.out.println("> 성적 등록이 완료되었습니다.");
+		} else
+			System.out.println("> 성적 등록을 실패하였습니다.");
+
 	}
 
 	private int inputInt(String string) {
@@ -161,9 +214,9 @@ public class ManageGrade {
 		System.out.print(string);
 		return scan.nextLine();
 	}
-	
+
 	private Float inputFloat(String string) {
 		System.out.print(string);
-		return Float.parseFloat(scan.nextLine());
+		return Float.parseFloat(scan2.nextLine());
 	}
 }

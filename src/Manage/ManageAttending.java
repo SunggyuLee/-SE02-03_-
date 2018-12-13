@@ -47,12 +47,12 @@ public class ManageAttending {
 				break;
 
 			case 4: // 수강신청
-				System.out.println("> 수강 신청합니다.");
+				System.out.println("> 수강 신청을 시작합니다.");
 				this.attendClass();
 				break;
 
 			case 5: // 수강취소
-				System.out.println("> 수강 취소합니다.");
+				System.out.println("> 수강 취소를 시작합니다.");
 				this.deleteClass();
 				break;
 
@@ -74,11 +74,12 @@ public class ManageAttending {
 			if (count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getUserId(), " "));
+			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getUserId(), " "));
 			count++;
 		}
 		System.out.println();
 		System.out.println();
+
 		String newAttenduserId = this.inputString("> 수강 신청할 학생의 학번 : ");
 
 		List<Grade> listg = daog.getUserGradeList(newAttenduserId);
@@ -104,6 +105,7 @@ public class ManageAttending {
 		}
 		System.out.println();
 		System.out.println();
+
 		String newAttendClassIdNum = this.inputString("> 수강 신청할 학수 번호 (ex.algorithm-1) : ");
 
 		List<Subject> SubjectofNew = daos.inquirySubjectList(newAttendClassIdNum);
@@ -149,8 +151,9 @@ public class ManageAttending {
 			gradee.setGrade((float) 0);
 			daog.InsertGrade(gradee);
 			System.out.println("> 수강 신청이 완료되었습니다.");
+
 		}
-		
+
 	}
 
 	private void deleteClass() { // 수강 취소
@@ -167,6 +170,7 @@ public class ManageAttending {
 		}
 		System.out.println();
 		System.out.println();
+
 		String deleteUserId = this.inputString("> 수강 취소할 학생의 학번 : ");
 
 		List<Grade> listg = daog.getUserGradeList(deleteUserId);
@@ -174,22 +178,23 @@ public class ManageAttending {
 		System.out.println("------------------------ 현재 수강 신청 현황 ------------------------");
 		int count2 = 1;
 		for (Grade g : listg) {
-			System.out.println(count2 + ". " + g.getClassIdNum());
+			System.out.println(count2 + "| " + g.getClassIdNum());
 			count2++;
 		}
 		System.out.println();
-		
+
 		String deleteClassIdNum = this.inputString("> 수강 취소할 학수 번호 (ex.algorithm-1) : ");
-		
+
 		gradee.setClassIdNum(deleteClassIdNum);
 		gradee.setUserId(deleteUserId);
+
 		boolean r = daog.deleteGrade(gradee);
 
 		if (r) {
 			System.out.println("> 수강 취소가 완료되었습니다.");
 		} else
 			System.out.println("> 수강 취소를 실패하였습니다.");
-		
+
 	}
 
 	private void inquirySyllabus() { // 강의 계획서 조회
@@ -209,7 +214,8 @@ public class ManageAttending {
 
 		String search = this.inputString("> 강의계획서를 조회할 학수 번호를 입력하세요 (ex.algorithm-1) : ");
 		String[] result = daos.getSyllabusAndSubjectName(search).split("#");
-		System.out.println("[ 과목명 : " + result[0] + " ]");
+
+		System.out.println("[과목명 : " + result[0] + "]");
 		System.out.println("강의 계획 내용 : " + result[1]);
 
 	}

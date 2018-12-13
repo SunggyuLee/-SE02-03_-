@@ -78,7 +78,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserId : " + userId + ", pwd : " + pwd + ", name : " + name + ", birth : " + birth + ", addr : "
-				+ addr + ", phoneNum : " + phoneNum + ", avgGrade : " + avgGrade;
+		return "비밀번호 : " + pwd + " | 이름 : " + name + " | 생년월일 : " + birth + " | 주소 : " + addr
+				+ " | 전화번호 : " + phoneNum + " | 평균 성적 : " + avgGrade;
 	}
 }

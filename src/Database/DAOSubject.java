@@ -338,7 +338,7 @@ public class DAOSubject {
 		return list;
 	}
 
-	// 학수번호 입력받아서 강의계획서랑 과목명 출력         과목명#강의계획서
+	// 학수번호 입력받아서 강의계획서랑 과목명 출력 과목명#강의계획서
 	public String getSyllabusAndSubjectName(String classIdNum) {
 		String sql = "SELECT * FROM subject WHERE classIdNum='" + classIdNum + "'";
 		String temp = "";
@@ -347,7 +347,7 @@ public class DAOSubject {
 				stmt = conn.createStatement();
 				if (stmt != null) {
 					rs = stmt.executeQuery(sql);
-					temp = rs.getString("subjectName") +"#"+ rs.getString("syllabus");
+					temp = rs.getString("subjectName") + "#" + rs.getString("syllabus");
 				}
 				stmt.close();
 				this.close();
@@ -361,6 +361,5 @@ public class DAOSubject {
 		}
 		return temp;
 	}
-
 
 }
