@@ -91,7 +91,7 @@ public class DAOAllSubject {
 					}
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패했습니다.");
@@ -120,7 +120,7 @@ public class DAOAllSubject {
 				pstmt.close();
 				this.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패");
@@ -146,7 +146,7 @@ public class DAOAllSubject {
 				pstmt.close();
 				this.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패");
@@ -171,7 +171,7 @@ public class DAOAllSubject {
 				pstmt.close();
 				this.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패");

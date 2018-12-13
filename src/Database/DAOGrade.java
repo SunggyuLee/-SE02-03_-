@@ -91,7 +91,7 @@ public class DAOGrade {
 					}
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		} else {
 			// 연결에 실패했을 때 작업
@@ -122,7 +122,7 @@ public class DAOGrade {
 				pstmt.close();
 				this.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패");
@@ -153,7 +153,7 @@ public class DAOGrade {
 					}
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		} else {
 			// 연결에 실패했을 때 작업
@@ -177,7 +177,7 @@ public class DAOGrade {
 				pstmt.close();
 				this.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패");
@@ -207,7 +207,7 @@ public class DAOGrade {
 					}
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패했습니다.");
@@ -235,7 +235,7 @@ public class DAOGrade {
 				pstmt.close();
 				this.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패");
@@ -263,7 +263,7 @@ public class DAOGrade {
 				pstmt.close();
 				this.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패");
@@ -286,7 +286,7 @@ public class DAOGrade {
 				pstmt.close();
 				this.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패");
@@ -312,7 +312,7 @@ public class DAOGrade {
 					}
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패했습니다.");
@@ -340,7 +340,7 @@ public class DAOGrade {
 					this.close();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패하였습니다.");
@@ -369,7 +369,7 @@ public class DAOGrade {
 					}
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		} else {
 			System.out.println("데이터베이스 연결에 실패했습니다.");
