@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAOAllSubject {
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost:3306/se_term_1?autoReconnect=true&useSSL=false";
 	static final String USERNAME = "root";
 	static final String PASSWORD = "201402408";
@@ -18,25 +18,28 @@ public class DAOAllSubject {
 	static {
 		try {
 			Class.forName(JDBC_DRIVER);
-		} catch(ClassNotFoundException e) {
-			System.out.println("클래스 로드 실패 : "+e.getMessage());
+		} catch (ClassNotFoundException e) {
+			System.out.println("클래스 로드 실패 : " + e.getMessage());
 		}
 	}
 
-	private DAOAllSubject() {}
+	private DAOAllSubject() {
+	}
+
 	private static DAOAllSubject obj;
 
 	public static DAOAllSubject sharedInstance() {
-		if(obj == null) {
+		if (obj == null) {
 			obj = new DAOAllSubject();
 		}
 		return obj;
 	}
+
 	// 데이터베이스 연동에 필요한 변수들을 선언
 	Connection conn;
 
 	// SQL 실행에 필요한 변수
-	Statement stmt; 
+	Statement stmt;
 
 	// select 구문을 수행했을 때 결과를 저장할 변수
 	private ResultSet rs;
@@ -44,24 +47,24 @@ public class DAOAllSubject {
 	private boolean connect() {
 		boolean result = false;
 
-		try{
-			conn = DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
+		try {
+			conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 			result = true;
 		} catch (Exception e) {
-			System.out.println("연결 실패 : " +e.getMessage());
+			System.out.println("연결 실패 : " + e.getMessage());
 		}
 		return result;
 	}
 
 	private void close() {
 		try {
-			if(rs != null)
+			if (rs != null)
 				rs.close();
-			if(stmt != null)
+			if (stmt != null)
 				stmt.close();
-			if(conn != null)
+			if (conn != null)
 				conn.close();
-		} catch( Exception e) {
+		} catch (Exception e) {
 			System.out.println("해제 실패 : " + e.getMessage());
 		}
 	}
@@ -69,15 +72,15 @@ public class DAOAllSubject {
 	public List<AllSubject> getAllSubjectList() { // select
 		List<AllSubject> list = null;
 		String sql = "SELECT * FROM allsubject";
-		if(connect()) {
+		if (connect()) {
 			try {
 				stmt = conn.createStatement();
-				if(stmt != null) {
+				if (stmt != null) {
 					rs = stmt.executeQuery(sql);
 
 					list = new ArrayList<AllSubject>();
 
-					while(rs.next()) {
+					while (rs.next()) {
 						AllSubject allSubject = new AllSubject();
 
 						allSubject.setSubjectName(rs.getString("subjectName"));
@@ -87,10 +90,10 @@ public class DAOAllSubject {
 						list.add(allSubject);
 					}
 				}
-			} catch(SQLException e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}else {
+		} else {
 			System.out.println("데이터베이스 연결에 실패했습니다.");
 			System.exit(0);
 		}
@@ -100,7 +103,7 @@ public class DAOAllSubject {
 	public boolean InsertAllSubject(AllSubject allSubject) {
 		boolean result = false;
 
-		if(this.connect()) {
+		if (this.connect()) {
 			try {
 				String sql = "INSERT INTO allsubject VALUES (?, ?, ?)";
 				PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -111,12 +114,12 @@ public class DAOAllSubject {
 
 				int r = pstmt.executeUpdate();
 
-				if(r>0) {
+				if (r > 0) {
 					result = true;
 				}
 				pstmt.close();
 				this.close();
-			} catch(SQLException e) {
+			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
 		} else {
@@ -129,20 +132,20 @@ public class DAOAllSubject {
 	public boolean modifyAllSubject(AllSubject allSubject) {
 		boolean result = false;
 
-		if(this.connect()) {
+		if (this.connect()) {
 			try {
-				String sql = "UPDATE allsubject set profName='"+ allSubject.getProfName()+"', credit='"+allSubject.getCredit()+"' "
-						+ "WHERE subjectName ='"+allSubject.getSubjectName()+"'";
+				String sql = "UPDATE allsubject set profName='" + allSubject.getProfName() + "', credit='"
+						+ allSubject.getCredit() + "' " + "WHERE subjectName ='" + allSubject.getSubjectName() + "'";
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 
 				int r = pstmt.executeUpdate();
 
-				if(r>0) {
+				if (r > 0) {
 					result = true;
 				}
 				pstmt.close();
 				this.close();
-			} catch(SQLException e) {
+			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
 		} else {
@@ -155,19 +158,19 @@ public class DAOAllSubject {
 	public boolean deleteAllSubject(AllSubject allSubject) {
 		boolean result = false;
 
-		if(this.connect()) {
+		if (this.connect()) {
 			try {
-				String sql = "DELETE from allSubject WHERE subjectName='"+allSubject.getSubjectName()+"'";
+				String sql = "DELETE from allSubject WHERE subjectName='" + allSubject.getSubjectName() + "'";
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 
 				int r = pstmt.executeUpdate();
 
-				if(r>0) {
+				if (r > 0) {
 					result = true;
 				}
 				pstmt.close();
 				this.close();
-			} catch(SQLException e) {
+			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
 		} else {

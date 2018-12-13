@@ -33,7 +33,6 @@ public class ManageScholar {
 					System.out.println("> 모든 학생들의 성적처리가 마감되지 않은 상태의 장학금 선발 대상 학생입니다.");
 					this.inquiryScholarshipStudent();
 				}
-
 				break;
 
 			case 2: // 장학생 지급율 수정
@@ -54,7 +53,7 @@ public class ManageScholar {
 	private void inquiryScholarshipStudent() { // 성적으로 정렬하여 선발 학생 수만큼 출력
 		List<String> list = daog.getScholarList(scholarStudentNum);
 
-		System.out.println("-------------------------- 목록 --------------------------");
+		System.out.println("-------------------------- 장학생 목록 --------------------------");
 		int count = 1;
 		for (String u : list) {
 			String temp[] = u.split("#");
@@ -65,23 +64,24 @@ public class ManageScholar {
 			System.out.println(count + "| 학번 : " + uId + " | 이름 : " + uName + " | 평균 학점 : " + uAvg);
 			count++;
 		}
-
-		// 다시한번 테이블을 확인해서 성적 기입이 다 안되어있다면 성적기입이 마감되지 않았다고 알려주고.
-		// 마감되었따면 장학 선발 완료되었다고 출력한다.
+		
 	}
 
 	private boolean gradingEnded() {
-		if (!new ManageGrade().endGrading) { 		// 성적처리 마감이 되지 않았을 때
-			boolean f = daog.checkGradeFinish(); 	// 성적 기입이 하나라도 안된게 있다면 false 반환
-			if (f) { 								// 모든 학생의 성적 기입이 된 상태일 때
+		if (!new ManageGrade().endGrading) {
+			boolean f = daog.checkGradeFinish();
+			if (f) {
 				System.out.println("> 성적이 모두 처리 되었습니다.");
 				String yesOrNo = this.inputString("> 성적 처리를 마감하시겠습니까? (처리 : Y/N) ");
+				
 				if (yesOrNo.equals("Y"))
 					new ManageGrade().endGrading = true;
 			}
 		}
+		
 		if (!new ManageGrade().endGrading)
 			System.out.println("> 성적 처리가 마감되지 않았습니다. 성적 처리 완료 후 마감을 해야합니다.");
+		
 		return new ManageGrade().endGrading;
 	}
 

@@ -56,7 +56,7 @@ public class ManageSubject {
 
 	private void deleteSubject() {
 		List<Subject> list = daos.getSubjectList();
-		
+
 		if (list.size() == 0) {
 			System.out.println("> 등록된 개설 과목이 없습니다.");
 			this.run();
@@ -65,7 +65,7 @@ public class ManageSubject {
 		System.out.println("-------------------------- 개설 과목 목록 --------------------------");
 		int count = 1;
 		for (Subject u : list) {
-			if(count % 6 == 0) {
+			if (count % 6 == 0) {
 				System.out.println();
 			}
 			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getClassIdNum(), " "));
@@ -74,8 +74,7 @@ public class ManageSubject {
 		System.out.println();
 		System.out.println();
 
-		String classIdNum = this.inputString("> 삭제할 학수번호 (ex.algorithm-1) : ");
-
+		String classIdNum = this.inputString("> 삭제할 학수 번호 (ex.algorithm-1) : ");
 		subject.setClassIdNum(classIdNum);
 
 		boolean r = daos.deleteSubject(subject);
@@ -88,7 +87,7 @@ public class ManageSubject {
 
 	private void modifySubject() {
 		List<Subject> list = daos.getSubjectList();
-		
+
 		if (list.size() == 0) {
 			System.out.println("> 등록된 개설 과목이 없습니다.");
 			this.run();
@@ -97,7 +96,7 @@ public class ManageSubject {
 		System.out.println("-------------------------- 개설 과목 목록 --------------------------");
 		int count = 1;
 		for (Subject u : list) {
-			if(count % 6 == 0) {
+			if (count % 6 == 0) {
 				System.out.println();
 			}
 			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getClassIdNum(), " "));
@@ -106,7 +105,7 @@ public class ManageSubject {
 		System.out.println();
 		System.out.println();
 
-		String classIdNum = this.inputString("> 학수번호 (ex.algorithm-1) : ");
+		String classIdNum = this.inputString("> 학수 번호 (ex.algorithm-1) : ");
 		String classTime = this.inputString("> 강의시간 (ex.13-15) : ");
 		String classRoom = this.inputString("> 강의실 (ex.101) : ");
 		String syllabus = this.inputString("> 강의계획서 : ");
@@ -119,8 +118,8 @@ public class ManageSubject {
 		subject.setAvailNum(availNum);
 
 		List<Subject> s_list = daos.checkDuplicationForclass(subject);
-		boolean r1 = true;
 
+		boolean r1 = true;
 		for (Subject s : s_list) {
 			String time = s.getClassTime();
 			int start_time = Integer.parseInt(time.split("-")[0]);
@@ -151,9 +150,8 @@ public class ManageSubject {
 				System.out.println("> 교과목 수정이 완료되었습니다.");
 			else
 				System.out.println("> 교과목 수정을 실패하였습니다.");
-
 		} else {
-			System.out.println("> 해당 강의시간과 강의실에 이미 다른 수업이 있습니다. ");
+			System.out.println("> 해당 강의시간과 강의실에 이미 다른 수업이 있습니다.");
 		}
 
 	}
@@ -164,7 +162,7 @@ public class ManageSubject {
 		System.out.println("-------------------------- 과목 목록 --------------------------");
 		int count = 1;
 		for (AllSubject u : as_list) {
-			if(count % 6 == 0) {
+			if (count % 6 == 0) {
 				System.out.println();
 			}
 			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getSubjectName(), " "));
@@ -189,8 +187,8 @@ public class ManageSubject {
 		subject.setAvailNum(availNum);
 
 		List<Subject> s_list = daos.checkDuplicationForclass(subject);
-		boolean r1 = true;
 
+		boolean r1 = true;
 		for (Subject s : s_list) {
 			String time = s.getClassTime();
 			int start_time = Integer.parseInt(time.split("-")[0]);
@@ -221,10 +219,10 @@ public class ManageSubject {
 				System.out.println("> 교과목 등록이 완료되었습니다.");
 			else
 				System.out.println("> 교과목 등록을 실패하였습니다.");
-
 		} else {
-			System.out.println("> 해당 강의시간과 강의실에 이미 다른 수업이 있습니다. ");
+			System.out.println("> 해당 강의시간과 강의실에 이미 다른 수업이 있습니다.");
 		}
+
 	}
 
 	private int inputInt(String string) {

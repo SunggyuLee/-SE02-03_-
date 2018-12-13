@@ -37,8 +37,8 @@ public class ManageRegister {
 				this.inquiryStudent();
 				break;
 
-			case 3: // 학적 변동
-				System.out.println("> 학적을 변동합니다.");
+			case 3: // 학적 수정
+				System.out.println("> 학적을 수정합니다.");
 				this.modifyStudent();
 				break;
 
@@ -70,7 +70,7 @@ public class ManageRegister {
 			if (count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getUserId(), " "));
+			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getUserId(), " "));
 			count++;
 		}
 		System.out.println();
@@ -88,7 +88,7 @@ public class ManageRegister {
 			System.out.println("> 학적 제거를 실패하였습니다.");
 	}
 
-	private void modifyStudent() {
+	private void modifyStudent() { // 학적 수정
 		List<User> u_list = daou.getStudentList();
 		
 		if (u_list.size() == 0) {
@@ -102,13 +102,13 @@ public class ManageRegister {
 			if (count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getUserId(), " "));
+			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getUserId(), " "));
 			count++;
 		}
 		System.out.println();
 		System.out.println();
 		
-		String userId = this.inputString("> 변동할 학번 : ");
+		String userId = this.inputString("> 수정할 학번 : ");
 		String pwd = this.inputString("> 비밀번호 : ");
 		String name = this.inputString("> 성명 (ex.kimseongje) : ");
 		String birth = this.inputString("> 생년월일 (ex.19940216) : ");
@@ -139,7 +139,7 @@ public class ManageRegister {
 			if (count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getUserId(), " "));
+			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getUserId(), " "));
 			count++;
 		}
 		System.out.println();
@@ -153,13 +153,12 @@ public class ManageRegister {
 		if (info.size() == 0) {
 			System.out.println("> 해당 학생이 존재하지 않습니다.");
 		} else {
-			System.out.println("[학생정보]");
 			System.out.println(info.get(0));
 		}
 		
 	}
 
-	private void enrollStudent() {
+	private void enrollStudent() { // 학적 등록
 		List<User> u_list = daou.getStudentList();
 
 		System.out.println("-------------------------- 학번 목록 --------------------------");
@@ -168,7 +167,7 @@ public class ManageRegister {
 			if (count % 6 == 0) {
 				System.out.println();
 			}
-			System.out.print(String.format("%s%3s", "[" + count + "]" + u.getUserId(), " "));
+			System.out.print(String.format("%s%3s", "[" + count + "] " + u.getUserId(), " "));
 			count++;
 		}
 		System.out.println();
